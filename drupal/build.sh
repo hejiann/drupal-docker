@@ -10,8 +10,8 @@ if ! type "docker-compose" > /dev/null; then
   sudo pip install docker-compose
 fi
 
-if ! grep -q "http://hub-mirror.c.163.com" /etc/default/docker; then
-  echo "DOCKER_OPTS=\"\$DOCKER_OPTS --registry-mirror=http://hub-mirror.c.163.com\"" | sudo tee --append /etc/default/docker
+if ! grep -q "222.180.239.146:5000" /etc/default/docker; then
+  echo "DOCKER_OPTS=\"\$DOCKER_OPTS --insecure-registry 222.180.239.146:5000\"" | sudo tee --append /etc/default/docker
   sudo service docker restart
 fi
 
@@ -19,17 +19,24 @@ sudo usermod -aG docker $USER
 sudo usermod -aG www-data $USER
 
 newgrp docker <<EONG
-docker-compose build
+docker login -u drupal -p 1 222.180.239.146:5000
+docker pull 222.180.239.146:5000/drupal
+docker tag 222.180.239.146:5000/drupal drupal
 sed -i 's/volumes:/#volumes:/' docker-compose.yml
 sed -i 's/- .\/web:\/var\/www\/html/#- .\/web:\/var\/www\/html/' docker-compose.yml
 docker-compose up -d
-sudo rm ./web -r
-sudo docker cp drupal:/var/www/html web
+if [ -d ./web.old ]; then
+  rm ./web.old -rf
+fi
+if [ -d ./web ]; then
+  mv ./web ./web.old
+fi
+sudo docker cp drupal:/var/www/html ./web
 docker-compose stop
 sed -i 's/#volumes:/volumes:/' docker-compose.yml
 sed -i 's/#- .\/web:\/var\/www\/html/- .\/web:\/var\/www\/html/' docker-compose.yml
 EONG
 
-sudo chown www-data.www-data web -R
-sudo chmod g+w web -R
+sudo chown www-data.www-data ./web -R
+sudo chmod g+w ./web -R
 
