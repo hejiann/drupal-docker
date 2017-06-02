@@ -19,17 +19,14 @@ sudo usermod -aG docker $USER
 sudo usermod -aG www-data $USER
 
 newgrp docker <<EONG
-docker pull jianhe/drupal
+docker pull jianhe/business_core
 sed -i 's/volumes:/#volumes:/' docker-compose.yml
 sed -i 's/- .\/web:\/var\/www\/html/#- .\/web:\/var\/www\/html/' docker-compose.yml
 docker-compose up -d
-if [ -d ./web.old ]; then
-  rm ./web.old -rf
-fi
 if [ -d ./web ]; then
   mv ./web ./web.old
 fi
-sudo docker cp drupal:/var/www/html ./web
+sudo docker cp business_core:/var/www/html ./web
 docker-compose stop
 sed -i 's/#volumes:/volumes:/' docker-compose.yml
 sed -i 's/#- .\/web:\/var\/www\/html/- .\/web:\/var\/www\/html/' docker-compose.yml

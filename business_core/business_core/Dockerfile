@@ -1,4 +1,4 @@
-FROM drupal
+FROM jianhe/drupal
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install business modules

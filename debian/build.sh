@@ -19,9 +19,7 @@ sudo usermod -aG docker $USER
 sudo usermod -aG www-data $USER
 
 newgrp docker <<EONG
-docker login -u drupal -p 1 222.180.239.146:5000
-docker pull 222.180.239.146:5000/debian
-docker tag 222.180.239.146:5000/debian debian
+docker pull jianhe/debian
 sed -i 's/volumes:/#volumes:/' docker-compose.yml
 sed -i 's/- .\/web:\/var\/www\/html/#- .\/web:\/var\/www\/html/' docker-compose.yml
 docker-compose up -d

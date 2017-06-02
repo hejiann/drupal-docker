@@ -1,5 +1,5 @@
 business:
-  image: business
+  image: jianhe/business
   container_name: business
   environment:
     XDEBUG_CONFIG: remote_host=172.17.0.1

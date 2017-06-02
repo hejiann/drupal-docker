@@ -1,5 +1,5 @@
 drupal:
-  image: drupal
+  image: jianhe/drupal
   container_name: drupal
   environment:
     XDEBUG_CONFIG: remote_host=172.17.0.1

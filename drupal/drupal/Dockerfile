@@ -1,4 +1,4 @@
-FROM debian
+FROM jianhe/debian
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install Drupal

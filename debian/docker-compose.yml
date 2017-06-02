@@ -1,5 +1,5 @@
 debian:
-  image: debian
+  image: jianhe/debian
   container_name: debian
   environment:
     XDEBUG_CONFIG: remote_host=172.17.0.1
