@@ -1,9 +1,9 @@
-debian:
-  image: jianhe/debian
-  container_name: debian
+drupal:
+  image: jianhe/bs_inventory
+  container_name: bs_inventory
   environment:
     XDEBUG_CONFIG: remote_host=172.17.0.1
   ports:
-    - 8082:80
+    - 8080:80
   volumes:
     - ./web:/var/www/html

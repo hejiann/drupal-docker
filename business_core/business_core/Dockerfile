@@ -6,14 +6,14 @@ ENV BUSINESS_CORE_VERSION 20170510
 RUN git clone git://git.drupal.org/project/business_core.git /var/www/html/modules/business_core
 RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/modules/admin_lte
 
-RUN cd modules/business_core/modules/reactjs && \
-  yarn install && \
-  node_modules/.bin/webpack
+#RUN cd modules/business_core/modules/reactjs && \
+#  yarn install && \
+#  node_modules/.bin/webpack
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush site-install -y business --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-RUN composer require drupal/console
+#RUN composer require drupal/console
 
 # Enable modules
 RUN /etc/init.d/mysql start && \

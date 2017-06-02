@@ -4,3 +4,10 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 # Install bs_inveotory
 RUN git clone git://git.drupal.org/project/bs_inventory.git /var/www/html/modules/bs_inventory
 
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush en -y bs_inventory
+
+# Finish
+EXPOSE 80 3306 22 443
+CMD exec supervisord -n
+
