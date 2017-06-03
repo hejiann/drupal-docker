@@ -10,11 +10,6 @@ if ! type "docker-compose" > /dev/null; then
   sudo pip install docker-compose
 fi
 
-if ! grep -q "222.180.239.146:5000" /etc/default/docker; then
-  echo "DOCKER_OPTS=\"\$DOCKER_OPTS --insecure-registry 222.180.239.146:5000\"" | sudo tee --append /etc/default/docker
-  sudo service docker restart
-fi
-
 sudo usermod -aG docker $USER
 sudo usermod -aG www-data $USER
 
