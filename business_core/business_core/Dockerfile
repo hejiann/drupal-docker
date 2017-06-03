@@ -6,9 +6,16 @@ ENV BUSINESS_CORE_VERSION 20170510
 RUN git clone git://git.drupal.org/project/business_core.git /var/www/html/modules/business_core
 RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/modules/admin_lte
 
-#RUN cd modules/business_core/modules/reactjs && \
-#  yarn install && \
-#  node_modules/.bin/webpack
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN apt-get install -y nodejs
+
+RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN sudo apt-get update && sudo apt-get install yarn
+
+RUN cd modules/business_core/modules/reactjs && \
+  yarn install && \
+  node_modules/.bin/webpack
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush site-install -y business --account-pass=admin --db-url=mysql://root:@localhost/drupal
