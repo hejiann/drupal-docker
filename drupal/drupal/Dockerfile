@@ -85,16 +85,10 @@ RUN mkdir -p /var/www/html/sites/default/files && \
   chmod a+rw /var/www/html/sites/default/services.yml && \
   chown -R www-data:www-data /var/www/html/
 
-# Install drupal console
-#RUN apt-get install -y php5-sqlite && \
-#  curl https://drupalconsole.com/installer -L -o drupal.phar && \
-#  mv drupal.phar /usr/local/bin/drupal && \
-#  chmod +x /usr/local/bin/drupal
-
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush site-install -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-RUN composer require drupal/console
+#RUN composer require drupal/console
 
 # Enable modules
 RUN /etc/init.d/mysql start && \

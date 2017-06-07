@@ -50,7 +50,9 @@ RUN /etc/init.d/mysql start && \
 
 # Enable business modules
 RUN /etc/init.d/mysql start && \
-  vendor/bin/drush en -y jsonapi \
+  vendor/bin/drush en -y \
+    basic_auth \
+    jsonapi \
     reactjs_page \
     quick_code \
     simple_box
