@@ -104,7 +104,7 @@ RUN /etc/init.d/mysql start && \
   vendor/bin/drush en -y \
     ajax_links_api \
     basic_auth \
-  # big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
+    #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
     charts \
     charts_c3 \
     default_content \

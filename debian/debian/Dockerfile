@@ -42,6 +42,7 @@ RUN apt-get install -y \
 RUN vim-addons install \
   ctrlp \
   matchit \
+  # nerd-commenter \
   youcompleteme
 
 RUN set -x; \
@@ -121,6 +122,15 @@ RUN apt-get clean
 RUN curl -sS https://install.phpcomposer.com/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+
+# Install yarn
+# webpack needs node version >=5.10
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN apt-get install -y nodejs
+
+RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+RUN sudo apt-get update && sudo apt-get install yarn
 
 # Finish
 EXPOSE 80 3306 22 443
