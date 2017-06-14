@@ -19,7 +19,7 @@ sed -i 's/volumes:/#volumes:/' docker-compose.yml
 sed -i 's/- .\/web:\/var\/www\/html/#- .\/web:\/var\/www\/html/' docker-compose.yml
 docker-compose up -d
 if [ -d ./web.old ]; then
-  rm ./web.old -rf
+  sudo rm ./web.old -rf
 fi
 if [ -d ./web ]; then
   mv ./web ./web.old

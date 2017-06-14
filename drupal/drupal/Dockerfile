@@ -35,6 +35,7 @@ RUN composer require \
   drupal/ajax_links_api \
   drupal/block_class \
   drupal/bootstrap \
+  drupal/custom_formatters \
   drupal/default_content \
   drupal/eck \
   drupal/features \
@@ -100,6 +101,8 @@ RUN /etc/init.d/mysql start && \
 #RUN composer require drupal/console
 
 # Enable modules
+# Drush could not enable multiple modules: 
+# https://github.com/drush-ops/drush/issues/2808
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush en -y \
     ajax_links_api \
