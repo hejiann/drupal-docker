@@ -4,7 +4,7 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 # Install business modules
 ENV BUSINESS_CORE_VERSION 20170510
 RUN git clone git://git.drupal.org/project/business_core.git /var/www/html/modules/business_core
-RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/modules/admin_lte
+RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/themes/admin_lte
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 RUN apt-get install -y nodejs

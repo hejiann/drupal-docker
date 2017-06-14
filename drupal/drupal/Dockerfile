@@ -10,6 +10,8 @@ WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
 RUN composer install
 
+RUN cd core && yarn install
+
 # Clearing cache via UI in translated language resets config translation of field labels to default language
 # https://www.drupal.org/node/2650434
 RUN wget https://www.drupal.org/files/issues/clearing_cache_via_ui-2650434-128.patch && \
@@ -20,6 +22,12 @@ RUN wget https://www.drupal.org/files/issues/clearing_cache_via_ui-2650434-128.p
 #RUN wget https://www.drupal.org/files/issues/2174633-143-entity-reference.patch && \
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
+
+# Patch: Allow any contextual link to opt-in to being displayed via offcanvas
+# https://www.drupal.org/node/2820135
+RUN wget https://www.drupal.org/files/issues/2820135-48.patch && \
+  patch -p1 < 2820135-48.patch && \
+  rm 2820135-48.patch
 
 # Install Drupal modules
 RUN composer require \
@@ -88,6 +96,7 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush site-install -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
+# Bug: https://github.com/hechoendrupal/drupal-console/issues/3317
 #RUN composer require drupal/console
 
 # Enable modules
