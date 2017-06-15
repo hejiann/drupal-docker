@@ -34,7 +34,6 @@ RUN composer require \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_class \
-  drupal/bootstrap \
   drupal/custom_formatters \
   drupal/default_content \
   drupal/eck \
@@ -52,8 +51,7 @@ RUN composer require \
   drupal/rules \
   drupal/state_machine \
   drupal/token \
-  drupal/views_slideshow \
-  drush/drush:dev-master
+  drupal/views_slideshow
 
 # Install charts
 RUN composer require drupal/charts && \
@@ -85,6 +83,16 @@ RUN cd /var/www/html/modules/panels && \
 # Install display suite
 RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
 
+# Install drupal themes
+RUN composer require \
+  drupal/bootstrap \
+  drupal/radix
+
+# Install drush
+# drush 8.1 require symfony/console ~2.7
+#RUN composer require drush/drush
+RUN composer require drush/drush:dev-master
+
 # Install Drupal site
 RUN mkdir -p /var/www/html/sites/default/files && \
   chmod a+rw /var/www/html/sites/default -R && \
@@ -97,19 +105,21 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush site-install -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-# Bug: https://github.com/hechoendrupal/drupal-console/issues/3317
-#RUN composer require drupal/console
+# Install drupal console
+# Drupal Console isn't compatible with Symfony components ~3.2
+# https://github.com/hechoendrupal/drupal-console/issues/3293
+#RUN composer require drupal/console:~1.0
 
 # Enable modules
-# Drush could not enable multiple modules: 
-# https://github.com/drush-ops/drush/issues/2808
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush en -y \
     ajax_links_api \
     basic_auth \
     #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
+    block_place \
     charts \
     charts_c3 \
+    custom_formatters \
     default_content \
     ds \
     eck \
@@ -117,7 +127,8 @@ RUN /etc/init.d/mysql start && \
     features_ui \
     field_formatter_class \
     jsonapi \
-    migrate_tools \
+    # missing migrate_plus: migrate_tools \
+    outside_in \
     page_manager_ui \
     panels \
     php \

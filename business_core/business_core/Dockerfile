@@ -14,38 +14,42 @@ RUN cd modules/business_core/modules/reactjs/node_modules/redux-json-api && \
   ../.bin/webpack lib/jsonapi.js dist/jsonapi.js
 
 # Install drupal site
-# bootstrap does not support outside_in https://www.drupal.org/node/2821008
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drush site-install -y business --account-pass=admin --db-url=mysql://root:@localhost/drupal
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush site-install -y business --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-# Bug: https://github.com/hechoendrupal/drupal-console/issues/3317
-#RUN composer require drupal/console
+# Install drupal console
+# Drupal Console isn't compatible with Symfony components ~3.2
+# https://github.com/hechoendrupal/drupal-console/issues/3293
+#RUN composer require drupal/console:~1.0
 
 # Enable modules
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drush en -y \
-#    ajax_links_api \
-#    basic_auth \
-#  # big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
-#    charts \
-#    charts_c3 \
-#    default_content \
-#    ds \
-#    eck \
-#    eva \
-#    features_ui \
-#    field_formatter_class \
-#    jsonapi \
-#    migrate_tools \
-#    page_manager_ui \
-#    panels \
-#    php \
-#    quicktabs \
-#    restui \
-#    rules \
-#    simpletest \
-#    views_slideshow \
-#    views_slideshow_cycle
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush en -y \
+    ajax_links_api \
+    basic_auth \
+    #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
+    block_place \
+    charts \
+    charts_c3 \
+    custom_formatters \
+    default_content \
+    ds \
+    eck \
+    eva \
+    features_ui \
+    field_formatter_class \
+    jsonapi \
+    # missing migrate_plus: migrate_tools \
+    outside_in \
+    page_manager_ui \
+    panels \
+    php \
+    quicktabs \
+    restui \
+    rules \
+    simpletest \
+    views_slideshow \
+    views_slideshow_cycle
 
 # Enable business modules
 RUN /etc/init.d/mysql start && \
