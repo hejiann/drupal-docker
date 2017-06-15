@@ -1,10 +1,9 @@
 FROM jianhe/drupal
 MAINTAINER Jian He <hejian.he@gmail.com>
 
-# Install business modules
+# Install business module
 ENV BUSINESS_CORE_VERSION 20170510
 RUN git clone git://git.drupal.org/project/business_core.git /var/www/html/modules/business_core
-RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/themes/admin_lte
 
 RUN cd modules/business_core/modules/reactjs && \
   yarn install && \
@@ -12,6 +11,11 @@ RUN cd modules/business_core/modules/reactjs && \
 
 RUN cd modules/business_core/modules/reactjs/node_modules/redux-json-api && \
   ../.bin/webpack lib/jsonapi.js dist/jsonapi.js
+
+# Install admin_lte theme
+RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/themes/admin_lte
+RUN cd themes/admin_lte && \
+  npm run setup
 
 # Install drupal site
 RUN /etc/init.d/mysql start && \

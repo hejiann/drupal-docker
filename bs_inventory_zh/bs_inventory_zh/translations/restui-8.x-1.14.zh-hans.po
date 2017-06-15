@@ -1,0 +1,178 @@
+# Chinese, Simplified translation of REST UI (8.x-1.14)
+# Copyright (c) 2017 by the Chinese, Simplified translation team
+# Generated from files:
+#  restui/src/Controller/RestUIController.php: n/a
+#  restui/src/Form/RestUIForm.php: n/a
+#  restui/restui.links.menu.yml: n/a
+#  restui/restui.info.yml: n/a
+#  restui/restui.module: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: REST UI (8.x-1.14)\n"
+"POT-Creation-Date: 2017-05-25 15:45+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: src/Controller/RestUIController.php:131
+msgid "Operations"
+msgstr "操作"
+
+#: src/Controller/RestUIController.php:127
+msgid "Description"
+msgstr "描述"
+
+#: src/Controller/RestUIController.php:164
+msgid "Enable"
+msgstr "启用"
+
+#: src/Controller/RestUIController.php:180
+msgid "Disable"
+msgstr "禁用"
+
+#: src/Controller/RestUIController.php:109
+# Suggestion on the localization server:
+# 停用
+msgid "Disabled"
+msgstr "已禁用"
+
+#: src/Controller/RestUIController.php:108
+# Suggestion on the localization server:
+# 启用
+msgid "Enabled"
+msgstr "已启用"
+
+#: src/Controller/RestUIController.php:175
+msgid "Edit"
+msgstr "编辑"
+
+#: src/Controller/RestUIController.php:123
+msgid "Path"
+msgstr "路径"
+
+#: src/Form/RestUIForm.php:179
+msgid "Method"
+msgstr "方式"
+
+#: src/Form/RestUIForm.php:175
+# Suggestion on the localization server:
+# 间隔
+msgid "Granularity"
+msgstr "粒度"
+
+#: src/Controller/RestUIController.php:184
+msgid "Permissions"
+msgstr "权限"
+
+#: restui.links.menu.yml:0
+msgid "REST"
+msgstr ""
+
+#: restui.info.yml:0
+msgid "Web services"
+msgstr "Web服务"
+
+#: src/Form/RestUIForm.php:300
+msgid "Methods"
+msgstr "方法"
+
+#: src/Form/RestUIForm.php:178
+msgid "Resource"
+msgstr "资源"
+
+#: src/Controller/RestUIController.php:119
+msgid "Resource name"
+msgstr "资源名称"
+
+#: src/Form/RestUIForm.php:258,325
+msgid "Authentication providers"
+msgstr ""
+
+#: src/Form/RestUIForm.php:246,313
+msgid "Accepted request formats"
+msgstr ""
+
+#: src/Controller/RestUIController.php:103,201
+msgid "REST resources"
+msgstr "REST资源"
+
+#: src/Controller/RestUIController.php:199
+msgid "There are no enabled resources."
+msgstr ""
+
+#: src/Controller/RestUIController.php:200
+msgid "There are no disabled resources."
+msgstr ""
+
+#: src/Controller/RestUIController.php:222
+msgid "The resource was disabled successfully."
+msgstr ""
+
+#: src/Form/RestUIForm.php:374
+msgid "At least one HTTP method must be selected"
+msgstr ""
+
+#: restui.info.yml:0
+msgid "REST UI"
+msgstr ""
+
+#: restui.info.yml:0
+msgid "Provides a user interface to manage REST resources"
+msgstr ""
+
+#: restui.links.menu.yml:0
+msgid "Configure REST server settings."
+msgstr ""
+
+#: restui.module:16
+msgid ""
+"Here you can restrict which HTTP methods should this resource support. "
+"And within each method, the available serialization formats and "
+"authentication providers."
+msgstr ""
+
+#: src/Form/RestUIForm.php:162
+msgid "Settings for resource %label"
+msgstr ""
+
+#: src/Form/RestUIForm.php:365
+msgid "At least one format must be selected for method @method."
+msgstr ""
+
+#: src/Form/RestUIForm.php:369
+msgid ""
+"At least one authentication provider must be selected for method "
+"@method."
+msgstr ""
+
+#: src/Form/RestUIForm.php:420
+msgid "The resource has been updated."
+msgstr "资源已更新。"
+
+#: src/Controller/RestUIController.php:106
+msgid ""
+"Here you can enable and disable available resources. Once a resource "
+"has been enabled, you can restrict its formats and authentication by "
+"clicking on its \"Edit\" link."
+msgstr "启用和禁用资源。资源启用后，可通过\"编辑\"链接限制格式和认证。"
+
+#: src/Controller/RestUIController.php:147
+msgid "@label <sup>(read-only)</sup>"
+msgstr ""
+
+#: src/Form/RestUIForm.php:390
+msgid "At least one HTTP method must be selected."
+msgstr ""
+
+#: src/Form/RestUIForm.php:393
+msgid "At least one request format must be selected."
+msgstr ""
+
+#: src/Form/RestUIForm.php:396
+msgid "At least one authentication provider must be selected"
+msgstr ""
+
