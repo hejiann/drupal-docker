@@ -15,7 +15,10 @@ RUN cd modules/business_core/modules/reactjs/node_modules/redux-json-api && \
 # Install admin_lte theme
 RUN git clone git://git.drupal.org/project/admin_lte.git /var/www/html/themes/admin_lte
 RUN cd themes/admin_lte && \
-  npm run setup
+  yarn install
+RUN npm install -g bower
+RUN cd themes/admin_lte && \
+  bower install --allow-root
 
 # Install drupal site
 RUN /etc/init.d/mysql start && \
@@ -25,6 +28,11 @@ RUN /etc/init.d/mysql start && \
 # Drupal Console isn't compatible with Symfony components ~3.2
 # https://github.com/hechoendrupal/drupal-console/issues/3293
 #RUN composer require drupal/console:~1.0
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal site:mode dev
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush cset -y system.performance css.preprocess 0 && \
+  vendor/bin/drush cset -y system.performance js.preprocess 0
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
@@ -58,8 +66,7 @@ RUN /etc/init.d/mysql start && \
 # Enable business modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush en -y \
-    basic_auth \
-    jsonapi \
+    outside_in_plus \
     reactjs_page \
     quick_code \
     simple_box

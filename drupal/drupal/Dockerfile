@@ -109,6 +109,11 @@ RUN /etc/init.d/mysql start && \
 # Drupal Console isn't compatible with Symfony components ~3.2
 # https://github.com/hechoendrupal/drupal-console/issues/3293
 #RUN composer require drupal/console:~1.0
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal site:mode dev
+RUN /etc/init.d/mysql start && \
+  drush cset -y system.performance css.preprocess 0 && \
+  drush cset -y system.performance js.preprocess 0
 
 # Enable modules
 RUN /etc/init.d/mysql start && \

@@ -16,10 +16,18 @@ RUN /etc/init.d/mysql start && \
   vendor/bin/drush language-add zh-hans
 #RUN /etc/init.d/mysql start && drupal locale:language:add zh-hans
 
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush cset -y system.site default_langcode "zh-hans"
+
 # Update translations
+# drush locale-update got Call to a member function get() on null
+# https://github.com/drush-ops/drush/issues/2812
 #RUN /etc/init.d/mysql start && \
-#  vendor/bin/drush cset -y system.site default_langcode "zh-hans" && \
 #  vendor/bin/drush locale-update
+
+# Setup site name
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush cset -y system.site name "库存管理系统"
 
 # Finish
 EXPOSE 80 3306 22 443
