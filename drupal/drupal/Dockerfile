@@ -112,8 +112,8 @@ RUN /etc/init.d/mysql start && \
 #RUN /etc/init.d/mysql start && \
 #  vendor/bin/drupal site:mode dev
 RUN /etc/init.d/mysql start && \
-  drush cset -y system.performance css.preprocess 0 && \
-  drush cset -y system.performance js.preprocess 0
+  vendor/bin/drush cset -y system.performance css.preprocess 0 && \
+  vendor/bin/drush cset -y system.performance js.preprocess 0
 
 # Enable modules
 RUN /etc/init.d/mysql start && \

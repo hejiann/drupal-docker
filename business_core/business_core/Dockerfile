@@ -2,7 +2,7 @@ FROM jianhe/drupal
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install business module
-ENV BUSINESS_CORE_VERSION 20170510
+ENV BUSINESS_CORE_VERSION 20170516
 RUN git clone git://git.drupal.org/project/business_core.git /var/www/html/modules/business_core
 
 RUN cd modules/business_core/modules/reactjs && \
@@ -19,49 +19,8 @@ RUN cd themes/admin_lte && \
 RUN npm install -g bower
 RUN cd themes/admin_lte && \
   bower install --allow-root
-
-# Install drupal site
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush site-install -y business --account-pass=admin --db-url=mysql://root:@localhost/drupal
-
-# Install drupal console
-# Drupal Console isn't compatible with Symfony components ~3.2
-# https://github.com/hechoendrupal/drupal-console/issues/3293
-#RUN composer require drupal/console:~1.0
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drupal site:mode dev
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush cset -y system.performance css.preprocess 0 && \
-  vendor/bin/drush cset -y system.performance js.preprocess 0
-
-# Enable modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush en -y \
-    ajax_links_api \
-    basic_auth \
-    #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
-    block_place \
-    charts \
-    charts_c3 \
-    custom_formatters \
-    default_content \
-    ds \
-    eck \
-    eva \
-    features_ui \
-    field_formatter_class \
-    jsonapi \
-    # missing migrate_plus: migrate_tools \
-    outside_in \
-    page_manager_ui \
-    panels \
-    php \
-    quicktabs \
-    restui \
-    rules \
-    simpletest \
-    views_slideshow \
-    views_slideshow_cycle
+RUN cd themes/admin_lte && \
+  node_modules/.bin/gulp css
 
 # Enable business modules
 RUN /etc/init.d/mysql start && \
@@ -70,6 +29,15 @@ RUN /etc/init.d/mysql start && \
     reactjs_page \
     quick_code \
     simple_box
+
+# Enable admin_lte theme
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush then admin_lte && \
+  vendor/bin/drush cset -y system.theme default admin_lte
+
+# Setup site name
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush cset -y system.site name "Business core"
 
 # Finish
 EXPOSE 80 3306 22 443
