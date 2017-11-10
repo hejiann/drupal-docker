@@ -25,6 +25,9 @@ RUN /etc/init.d/mysql start && \
 #RUN /etc/init.d/mysql start && \
 #  vendor/bin/drush locale-update
 
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush langimp zh-hans sites/default/files/translations/drupal-8.3.x-zh-hans.po
+
 # Setup site name
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush cset -y system.site name "库存管理系统"

@@ -1,4 +1,4 @@
-drupal:
+bs_inventory:
   image: jianhe/bs_inventory
   container_name: bs_inventory
   environment:

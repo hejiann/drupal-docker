@@ -3,31 +3,19 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20170612
-RUN git clone git://git.drupal.org/project/drupal.git /var/www/html
+ENV DRUPAL_VERSION 20171110
+RUN git clone git://git.drupal.org/project/drupal.git /var/www/html -b 8.4.x
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
 RUN composer install
 
-RUN cd core && yarn install
-
-# Clearing cache via UI in translated language resets config translation of field labels to default language
-# https://www.drupal.org/node/2650434
-RUN wget https://www.drupal.org/files/issues/clearing_cache_via_ui-2650434-128.patch && \
-  patch -p1 < clearing_cache_via_ui-2650434-128.patch && \
-  rm clearing_cache_via_ui-2650434-128.patch
+#RUN cd core && yarn install
 
 # Patch: View output is not used for entityreference options
 #RUN wget https://www.drupal.org/files/issues/2174633-143-entity-reference.patch && \
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
-
-# Patch: Allow any contextual link to opt-in to being displayed via offcanvas
-# https://www.drupal.org/node/2820135
-RUN wget https://www.drupal.org/files/issues/2820135-48.patch && \
-  patch -p1 < 2820135-48.patch && \
-  rm 2820135-48.patch
 
 # Install Drupal modules
 RUN composer require \
@@ -39,6 +27,7 @@ RUN composer require \
   drupal/eck \
   drupal/features \
   drupal/field_formatter_class \
+  drupal/field_group \
   drupal/inline_entity_form \
   drupal/jsonapi \
   drupal/menu_block \
@@ -47,11 +36,19 @@ RUN composer require \
   drupal/paragraphs \
   drupal/php \
   drupal/quicktabs \
+  drupal/reference_table_formatter \
   drupal/restui \
   drupal/rules \
-  drupal/state_machine \
   drupal/token \
   drupal/views_slideshow
+
+# 8.5.x
+# Service 'page_manager.variant_route_filter' for consumer 'router.no_access_checks' does not implement Drupal\Core\Routing\FilterInterface
+# https://www.drupal.org/node/2918564
+#RUN cd modules/contrib/page_manager && \
+#  wget https://www.drupal.org/files/issues/page_manager_variant_route_filter-2918564.patch && \
+#  patch -p1 < page_manager_variant_route_filter-2918564.patch && \
+#  rm page_manager_variant_route_filter-2918564.patch
 
 # Install charts
 RUN composer require drupal/charts && \
@@ -89,9 +86,8 @@ RUN composer require \
   drupal/radix
 
 # Install drush
-# drush 8.1 require symfony/console ~2.7
-#RUN composer require drush/drush
-RUN composer require drush/drush:dev-master
+RUN composer require drush/drush
+#RUN composer require drush/drush:dev-master
 
 # Install Drupal site
 RUN mkdir -p /var/www/html/sites/default/files && \
@@ -109,11 +105,15 @@ RUN /etc/init.d/mysql start && \
 # Drupal Console isn't compatible with Symfony components ~3.2
 # https://github.com/hechoendrupal/drupal-console/issues/3293
 #RUN composer require drupal/console:~1.0
+RUN composer require drupal/console
+
 #RUN /etc/init.d/mysql start && \
 #  vendor/bin/drupal site:mode dev
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush cset -y system.performance css.preprocess 0 && \
   vendor/bin/drush cset -y system.performance js.preprocess 0
+RUN sed -i 's/debug: false/debug: true/' /var/www/html/sites/default/services.yml && \
+  sed -i 's/auto_reload: null/auto_reload: true/' /var/www/html/sites/default/services.yml
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
@@ -131,18 +131,26 @@ RUN /etc/init.d/mysql start && \
     eva \
     features_ui \
     field_formatter_class \
+    field_group \
     jsonapi \
+    menu_block \
     # missing migrate_plus: migrate_tools \
-    outside_in \
+    # outside_in \
     page_manager_ui \
     panels \
     php \
     quicktabs \
+    reference_table_formatter \
     restui \
     rules \
     simpletest \
     views_slideshow \
     views_slideshow_cycle
+
+# Enable radix theme
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drush en -y radix && \
+  vendor/bin/drush cset -y system.theme default radix
 
 # Finish
 EXPOSE 80 3306 22 443

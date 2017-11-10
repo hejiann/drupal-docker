@@ -20,7 +20,8 @@ RUN npm install -g bower
 RUN cd themes/admin_lte && \
   bower install --allow-root
 RUN cd themes/admin_lte && \
-  node_modules/.bin/gulp css
+  node_modules/.bin/gulp css && \
+  node_modules/.bin/gulp fonts
 
 # Enable business modules
 RUN /etc/init.d/mysql start && \
