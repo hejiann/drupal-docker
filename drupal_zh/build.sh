@@ -14,7 +14,7 @@ sudo usermod -aG docker $USER
 sudo usermod -aG www-data $USER
 
 newgrp docker <<EONG
-docker pull jianhe/bs_inventory_zh
+docker pull jianhe/drupal_zh
 sed -i 's/volumes:/#volumes:/' docker-compose.yml
 sed -i 's/- .\/web:\/var\/www\/html/#- .\/web:\/var\/www\/html/' docker-compose.yml
 docker-compose up -d
@@ -24,7 +24,7 @@ fi
 if [ -d ./web ]; then
   mv ./web ./web.old
 fi
-sudo docker cp bs_inventory_zh:/var/www/html ./web
+sudo docker cp drupal_zh:/var/www/html ./web
 docker-compose stop
 sed -i 's/#volumes:/volumes:/' docker-compose.yml
 sed -i 's/#- .\/web:\/var\/www\/html/- .\/web:\/var\/www\/html/' docker-compose.yml

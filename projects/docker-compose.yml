@@ -1,9 +1,0 @@
-drupal:
-  image: jianhe/projects
-  container_name: projects
-  environment:
-    XDEBUG_CONFIG: remote_host=172.17.0.1
-  ports:
-    - 8087:80
-  volumes:
-    - ./web:/var/www/html

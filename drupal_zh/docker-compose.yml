@@ -1,9 +1,9 @@
 drupal:
-  image: jianhe/bs_inventory_zh
-  container_name: bs_inventory_zh
+  image: jianhe/drupal_zh
+  container_name: drupal_zh
   environment:
     XDEBUG_CONFIG: remote_host=172.17.0.1
   ports:
-    - 8081:80
+    - 8085:80
   volumes:
     - ./web:/var/www/html

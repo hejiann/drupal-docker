@@ -1,4 +1,4 @@
-FROM jianhe/bs_inventory
+FROM jianhe/drupal
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install zh-hans language
@@ -25,12 +25,8 @@ RUN /etc/init.d/mysql start && \
 #RUN /etc/init.d/mysql start && \
 #  vendor/bin/drush locale-update
 
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush langimp zh-hans sites/default/files/translations/drupal-8.3.x-zh-hans.po
-
-# Setup site name
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush cset -y system.site name "库存管理系统"
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drush langimp zh-hans sites/default/files/translations/drupal-8.3.x-zh-hans.po
 
 # Finish
 EXPOSE 80 3306 22 443

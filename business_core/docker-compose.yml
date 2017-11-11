@@ -1,9 +1,0 @@
-business:
-  image: jianhe/business_core
-  container_name: business_core
-  environment:
-    XDEBUG_CONFIG: remote_host=172.17.0.1
-  ports:
-    - 8082:80
-  volumes:
-    - ./web:/var/www/html
