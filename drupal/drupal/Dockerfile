@@ -32,7 +32,6 @@ RUN composer require \
   drupal/inline_entity_form \
   drupal/jsonapi \
   drupal/menu_block \
-  drupal/migrate_source_csv \
   drupal/page_manager \
   drupal/paragraphs \
   drupal/php \
@@ -67,9 +66,6 @@ RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch &
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
 
-# Install recent migrate_tools
-RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
-
 # Install panels
 RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
 # Patch: Custom attributes in panels blocks
@@ -83,6 +79,14 @@ RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modul
 
 # Install dev tool modules
 RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
+
+# Install migrate modules
+RUN composer require \
+  drupal/migrate_plus \
+  drupal/migrate_source_csv \
+  drupal/migrate_tools
+# Install recent migrate_tools
+#RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
 
 # Install drush
 RUN composer require drush/drush
@@ -112,7 +116,7 @@ RUN /etc/init.d/mysql start && \
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
-  vendor/bin/drush en -y \
+  vendor/bin/drupal moi -y \
     ajax_links_api \
     basic_auth \
     #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
@@ -129,7 +133,6 @@ RUN /etc/init.d/mysql start && \
     field_group \
     jsonapi \
     menu_block \
-    # missing migrate_plus: migrate_tools \
     # outside_in \
     page_manager_ui \
     panels \
@@ -141,6 +144,11 @@ RUN /etc/init.d/mysql start && \
     simpletest \
     views_slideshow \
     views_slideshow_cycle
+
+# Enable migrate modules
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    migrate_tools
 
 # Enable dev tool modules
 RUN /etc/init.d/mysql start && \
