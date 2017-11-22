@@ -31,7 +31,6 @@ RUN composer require \
   drupal/field_group \
   drupal/inline_entity_form \
   drupal/menu_block \
-  drupal/page_manager \
   drupal/paragraphs \
   drupal/php \
   drupal/quicktabs \
@@ -64,17 +63,6 @@ RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch &
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
 
-# Install panels
-RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
-# Patch: Custom attributes in panels blocks
-RUN cd /var/www/html/modules/panels && \
-  wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
-  patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
-  rm 2849867-custom_attributes_in_panels_blocks-11.patch
-
-# Install display suite
-RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
-
 # Install dev tool modules
 RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
 
@@ -85,6 +73,22 @@ RUN composer require \
   drupal/migrate_tools
 # Install recent migrate_tools
 #RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
+
+# Install layout modules
+RUN composer require \
+  drupal/ds \
+  drupal/page_manager
+
+# Install display suite
+#RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
+
+# Install panels
+RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
+# Patch: Custom attributes in panels blocks
+RUN cd /var/www/html/modules/panels && \
+  wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
+  patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
+  rm 2849867-custom_attributes_in_panels_blocks-11.patch
 
 # Install api-first modules
 RUN composer require \
@@ -129,7 +133,6 @@ RUN /etc/init.d/mysql start && \
     charts_c3 \
     custom_formatters \
     default_content \
-    ds \
     eck \
     eva \
     features_ui \
@@ -137,8 +140,6 @@ RUN /etc/init.d/mysql start && \
     field_group \
     menu_block \
     # outside_in \
-    page_manager_ui \
-    panels \
     php \
     quicktabs \
     reference_table_formatter \
@@ -151,6 +152,13 @@ RUN /etc/init.d/mysql start && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     migrate_tools
+
+# Enable layout modules
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    ds \
+    page_manager_ui \
+    panels
 
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
