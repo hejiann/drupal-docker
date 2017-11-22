@@ -30,14 +30,12 @@ RUN composer require \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
-  drupal/jsonapi \
   drupal/menu_block \
   drupal/page_manager \
   drupal/paragraphs \
   drupal/php \
   drupal/quicktabs \
   drupal/reference_table_formatter \
-  drupal/restui \
   drupal/rules \
   drupal/token \
   drupal/views_slideshow
@@ -88,6 +86,12 @@ RUN composer require \
 # Install recent migrate_tools
 #RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
 
+# Install api-first modules
+RUN composer require \
+  drupal/graphql \
+  drupal/jsonapi \
+  drupal/restui
+
 # Install drush
 RUN composer require drush/drush
 #RUN composer require drush/drush:dev-master
@@ -131,7 +135,6 @@ RUN /etc/init.d/mysql start && \
     features_ui \
     field_formatter_class \
     field_group \
-    jsonapi \
     menu_block \
     # outside_in \
     page_manager_ui \
@@ -139,7 +142,6 @@ RUN /etc/init.d/mysql start && \
     php \
     quicktabs \
     reference_table_formatter \
-    restui \
     rules \
     simpletest \
     views_slideshow \
@@ -149,6 +151,12 @@ RUN /etc/init.d/mysql start && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     migrate_tools
+
+# Enable api-first modules
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    jsonapi \
+    restui
 
 # Enable dev tool modules
 RUN /etc/init.d/mysql start && \
