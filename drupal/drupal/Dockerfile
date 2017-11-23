@@ -68,11 +68,13 @@ RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/mo
 
 # Install migrate modules
 RUN composer require \
-  drupal/migrate_plus \
+  #drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_tools
 # Install recent migrate_tools
 #RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
+# Install recent migrate_plus module
+RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
 
 # Install layout modules
 RUN composer require \
@@ -95,6 +97,10 @@ RUN composer require \
   drupal/graphql \
   drupal/jsonapi \
   drupal/restui
+
+# Install drupal themes
+RUN composer require \
+  drupal/radix
 
 # Install drush
 RUN composer require drush/drush
@@ -126,7 +132,6 @@ RUN /etc/init.d/mysql start && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     ajax_links_api \
-    basic_auth \
     #big_pipe will let page_manager not work: https://www.drupal.org/node/2868216
     block_place \
     charts \
@@ -144,7 +149,6 @@ RUN /etc/init.d/mysql start && \
     quicktabs \
     reference_table_formatter \
     rules \
-    simpletest \
     views_slideshow \
     views_slideshow_cycle
 
@@ -163,13 +167,15 @@ RUN /etc/init.d/mysql start && \
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
+    basic_auth \
     jsonapi \
     restui
 
 # Enable dev tool modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
-    config_inspector
+    config_inspector \
+    simpletest
 
 # Finish
 EXPOSE 80 3306 22 443
