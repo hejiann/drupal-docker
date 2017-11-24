@@ -144,11 +144,11 @@ RUN /etc/init.d/mysql start && \
     field_formatter_class \
     field_group \
     menu_block \
-    # outside_in \
     php \
     quicktabs \
     reference_table_formatter \
     rules \
+    settings_tray \
     views_slideshow \
     views_slideshow_cycle
 
