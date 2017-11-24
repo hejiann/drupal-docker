@@ -63,44 +63,6 @@ RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch &
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
 
-# Install dev tool modules
-RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
-
-# Install migrate modules
-RUN composer require \
-  #drupal/migrate_plus \
-  drupal/migrate_source_csv \
-  drupal/migrate_tools
-# Install recent migrate_tools
-#RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
-# Install recent migrate_plus module
-RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
-
-# Install layout modules
-RUN composer require \
-  drupal/ds \
-  drupal/page_manager
-
-# Install display suite
-#RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
-
-# Install panels
-RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
-# Patch: Custom attributes in panels blocks
-RUN cd /var/www/html/modules/panels && \
-  wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
-  patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
-  rm 2849867-custom_attributes_in_panels_blocks-11.patch
-
-# Install api-first modules
-RUN composer require \
-  drupal/graphql \
-  drupal/jsonapi \
-  drupal/restui
-
-# Install drupal themes
-RUN composer require \
-  drupal/radix
 
 # Install drush
 RUN composer require drush/drush
@@ -152,10 +114,36 @@ RUN /etc/init.d/mysql start && \
     views_slideshow \
     views_slideshow_cycle
 
+# Install migrate modules
+RUN composer require \
+  #drupal/migrate_plus \
+  drupal/migrate_source_csv \
+  drupal/migrate_tools
+# Install recent migrate_tools
+#RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
+# Install recent migrate_plus module
+RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
+
 # Enable migrate modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     migrate_tools
+
+# Install layout modules
+RUN composer require \
+  drupal/ds \
+  drupal/page_manager
+
+# Install display suite
+#RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
+
+# Install panels
+RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
+# Patch: Custom attributes in panels blocks
+RUN cd /var/www/html/modules/panels && \
+  wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
+  patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
+  rm 2849867-custom_attributes_in_panels_blocks-11.patch
 
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
@@ -164,6 +152,11 @@ RUN /etc/init.d/mysql start && \
     page_manager_ui \
     panels
 
+# Install api-first modules
+RUN composer require \
+  drupal/graphql \
+  drupal/jsonapi \
+  drupal/restui
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
@@ -171,11 +164,29 @@ RUN /etc/init.d/mysql start && \
     jsonapi \
     restui
 
-# Enable dev tool modules
+# Install dev tool modules
+RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
+# Enable dev tools modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     config_inspector \
     simpletest
+
+# Install drupal themes
+RUN composer require \
+  drupal/radix
+
+# Install memcache modules
+RUN composer require \
+  drupal/memcache \
+  drupal/memcache_storage
+# Enable memcache modules
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    memcache \
+    memcache_storage
+COPY settings.local.php sites/default/settings.local.php
+RUN echo "include $app_root . '/' . $site_path . '/settings.local.php';" >> sites/default/settings.php
 
 # Finish
 EXPOSE 80 3306 22 443

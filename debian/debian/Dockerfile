@@ -132,6 +132,11 @@ RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN sudo apt-get update && sudo apt-get install yarn
 
+# Install memcached
+RUN apt install -y \
+  memcached
+  php-memcached
+
 # Finish
 EXPOSE 80 3306 22 443
 CMD exec supervisord -n
