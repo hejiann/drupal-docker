@@ -1,0 +1,18 @@
+# Chinese, Simplified translation of Default Content for D8 (8.x-1.0-alpha7)
+# Copyright (c) 2017 by the Chinese, Simplified translation team
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Default Content for D8 (8.x-1.0-alpha7)\n"
+"POT-Creation-Date: 2017-10-19 21:44+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: Chinese, Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+msgid "The name of the module."
+msgstr "模块名称。"
+msgid "Web services"
+msgstr "Web服务"
