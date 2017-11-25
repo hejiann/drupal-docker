@@ -133,9 +133,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/so
 RUN sudo apt-get update && sudo apt-get install yarn
 
 # Install memcached
-RUN apt install -y \
-  memcached
-  php-memcached
+RUN apt-get install -y \
+  memcached \
+  php5-memcached
 
 # Finish
 EXPOSE 80 3306 22 443
