@@ -117,10 +117,10 @@ RUN /etc/init.d/mysql start && \
 # Install migrate modules
 RUN composer require \
   #drupal/migrate_plus \
-  drupal/migrate_source_csv \
-  drupal/migrate_tools
+  drupal/migrate_source_csv
+  #drupal/migrate_tools
 # Install recent migrate_tools
-#RUN git clone git://git.drupal.org/project/migrate_tools.git -b 8.x-4.x /var/www/html/modules/migrate_tools
+RUN git clone git://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
 # Install recent migrate_plus module
 RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
 
