@@ -25,13 +25,11 @@ RUN composer require \
   drupal/block_class \
   drupal/custom_formatters \
   drupal/default_content \
-  drupal/eck \
   drupal/features \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
   drupal/menu_block \
-  drupal/paragraphs \
   drupal/php \
   drupal/quicktabs \
   drupal/reference_table_formatter \
@@ -100,7 +98,6 @@ RUN /etc/init.d/mysql start && \
     charts_c3 \
     custom_formatters \
     default_content \
-    eck \
     eva \
     features_ui \
     field_formatter_class \
@@ -131,11 +128,8 @@ RUN /etc/init.d/mysql start && \
 
 # Install layout modules
 RUN composer require \
-  drupal/ds \
-  drupal/page_manager
-
-# Install display suite
-#RUN git clone git://git.drupal.org/project/ds.git -b 8.x-3.x /var/www/html/modules/ds
+  drupal/page_manager \
+  drupal/panelizer
 
 # Install panels
 RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
@@ -148,8 +142,8 @@ RUN cd /var/www/html/modules/panels && \
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
-    ds \
     page_manager_ui \
+    panelizer \
     panels
 
 # Install api-first modules
@@ -163,6 +157,14 @@ RUN /etc/init.d/mysql start && \
     basic_auth \
     jsonapi \
     restui
+
+# Install data modeling modules
+RUN composer require \
+  drupal/eck
+# Enable data modeling modules
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    eck
 
 # Install dev tool modules
 RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
