@@ -153,8 +153,11 @@ RUN /etc/init.d/mysql start && \
 # Install api-first modules
 RUN composer require \
   drupal/graphql \
-  drupal/jsonapi \
+  #drupal/jsonapi \
   drupal/restui
+# jsonapi on Drpual 8.5.x
+# PHP Fatal error:  Access level to Drupal\serialization\Normalizer\NormalizerBase::addCacheableDependency() must be public (as in class Drupal\Core\Cache\RefinableCacheableDependencyInterface) in /var/www/html/modules/contrib/jsonapi/src/Normalizer/RelationshipItemNormalizer.php on line 18
+RUN git clone git://git.drupal.org/project/jsonapi.git /var/www/html/modules/jsonapi
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
