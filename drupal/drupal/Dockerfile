@@ -128,6 +128,7 @@ RUN /etc/init.d/mysql start && \
 
 # Install layout modules
 RUN composer require \
+  drupal/ds \
   drupal/page_manager \
   drupal/panelizer
 
@@ -142,6 +143,7 @@ RUN cd /var/www/html/modules/panels && \
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
+    ds \
     page_manager_ui \
     panelizer \
     panels
