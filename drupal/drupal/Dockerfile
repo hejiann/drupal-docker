@@ -53,10 +53,8 @@ RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch &
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
 
-
 # Install drush
 RUN composer require drush/drush
-#RUN composer require drush/drush:dev-master
 
 # Install Drupal site
 RUN mkdir -p /var/www/html/sites/default/files && \
@@ -157,12 +155,14 @@ RUN composer require \
   drupal/restui
 # jsonapi on Drpual 8.5.x
 # PHP Fatal error:  Access level to Drupal\serialization\Normalizer\NormalizerBase::addCacheableDependency() must be public (as in class Drupal\Core\Cache\RefinableCacheableDependencyInterface) in /var/www/html/modules/contrib/jsonapi/src/Normalizer/RelationshipItemNormalizer.php on line 18
+# https://www.drupal.org/project/jsonapi/issues/2926291
 RUN git clone git://git.drupal.org/project/jsonapi.git /var/www/html/modules/jsonapi
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     basic_auth \
-    jsonapi \
+    graphql \
+    #jsonapi \
     restui
 
 # Install data modeling modules
