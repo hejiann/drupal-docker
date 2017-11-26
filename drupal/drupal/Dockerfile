@@ -188,7 +188,7 @@ RUN /etc/init.d/mysql start && \
     memcache \
     memcache_storage
 COPY settings.local.php sites/default/settings.local.php
-RUN echo "include $app_root . '/' . $site_path . '/settings.local.php';" >> sites/default/settings.php
+RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> sites/default/settings.php
 
 # Finish
 EXPOSE 80 3306 22 443
