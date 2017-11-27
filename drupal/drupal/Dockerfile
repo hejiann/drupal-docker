@@ -18,13 +18,18 @@ RUN composer install
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# Patch: Allow blocks to be added to entity displays in Field UI
+# https://www.drupal.org/project/drupal/issues/2878685
+RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-26.patch && \
+  patch -p1 < 2878685-block-field_ui-26.patch && \
+  rm 2878685-block-field_ui-26.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_class \
   drupal/custom_formatters \
-  drupal/default_content \
   drupal/features \
   drupal/field_formatter_class \
   drupal/field_group \
@@ -87,7 +92,6 @@ RUN /etc/init.d/mysql start && \
     charts \
     charts_c3 \
     custom_formatters \
-    default_content \
     eva \
     features_ui \
     field_formatter_class \
@@ -103,6 +107,7 @@ RUN /etc/init.d/mysql start && \
 
 # Install migrate modules
 RUN composer require \
+  drupal/default_content \
   #drupal/migrate_plus \
   drupal/migrate_source_csv
   #drupal/migrate_tools
@@ -114,6 +119,7 @@ RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/module
 # Enable migrate modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
+    default_content \
     migrate_tools
 
 # Install layout modules
@@ -154,7 +160,7 @@ RUN composer require \
   #drupal/jsonapi \
   drupal/restui
 # jsonapi on Drpual 8.5.x
-# PHP Fatal error:  Access level to Drupal\serialization\Normalizer\NormalizerBase::addCacheableDependency() must be public (as in class Drupal\Core\Cache\RefinableCacheableDependencyInterface) in /var/www/html/modules/contrib/jsonapi/src/Normalizer/RelationshipItemNormalizer.php on line 18
+# Fatal error on 8.5.x: RelationshipItemNormalizer implements RefinableCacheableDependencyInterface, but should not
 # https://www.drupal.org/project/jsonapi/issues/2926291
 RUN git clone git://git.drupal.org/project/jsonapi.git /var/www/html/modules/jsonapi
 # Enable api-first modules
@@ -162,7 +168,7 @@ RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     basic_auth \
     graphql \
-    #jsonapi \
+    jsonapi \
     restui
 
 # Install data modeling modules

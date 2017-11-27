@@ -26,7 +26,7 @@ RUN /etc/init.d/mysql start && \
 # Setting default language to any language other than english results in interface translations being overwritten during module install
 # https://www.drupal.org/project/drupal/issues/2905295
 #RUN /etc/init.d/mysql start && \
-#  vendor/bin/drush langimp --langcode=zh-hans sites/default/files/translations/drupal-8.4.x-zh-hans.po
+#  vendor/bin/drush langimp --langcode=zh-hans sites/default/files/translations/drupal-8.4.x.zh-hans.po
 
 # Finish
 EXPOSE 80 3306 22 443
