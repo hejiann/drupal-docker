@@ -30,6 +30,7 @@ RUN composer require \
   drupal/ajax_links_api \
   drupal/block_class \
   drupal/custom_formatters \
+  drupal/facets \
   drupal/features \
   drupal/field_formatter_class \
   drupal/field_group \
@@ -181,6 +182,7 @@ RUN /etc/init.d/mysql start && \
 
 # Install dev tool modules
 RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
+RUN vendor/bin/drush dl potx-7.x-3.x --package-handler=git-drupalorg
 # Enable dev tools modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
