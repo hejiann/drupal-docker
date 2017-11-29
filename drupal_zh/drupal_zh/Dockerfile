@@ -14,7 +14,7 @@ COPY translations/* sites/default/files/translations/
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush language-add zh-hans
-#RUN /etc/init.d/mysql start && drupal locale:language:add zh-hans
+#RUN /etc/init.d/mysql start && vendor/bin/drupal locale:language:add zh-hans
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush cset -y system.site default_langcode "zh-hans"

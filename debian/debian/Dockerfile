@@ -138,6 +138,7 @@ RUN sudo apt-get update && sudo apt-get install yarn
 RUN apt-get install -y \
   memcached \
   php5-memcached
+RUN systemctl enable memcached
 
 # Finish
 EXPOSE 80 3306 22 443
