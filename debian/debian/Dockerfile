@@ -3,9 +3,8 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install basic system
-RUN sed -i 's/deb.debian.org/mirrors.163.com/' /etc/apt/sources.list
-RUN sed -i 's/security.debian.org/mirrors.163.com\/debian-security/' /etc/apt/sources.list
-ENV DEBIAN_VERSION 20170511
+#RUN sed -i 's/deb.debian.org/mirrors.163.com/' /etc/apt/sources.list
+#RUN sed -i 's/security.debian.org/mirrors.163.com\/debian-security/' /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get install -y \
   bash-completion \
