@@ -3,7 +3,6 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20171126
 RUN git clone git://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -150,7 +149,7 @@ RUN cd modules/contrib/panels && \
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
-    ds \
+    #ds \
     page_manager_ui \
     panelizer \
     panels
