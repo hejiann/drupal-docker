@@ -12,6 +12,7 @@ RUN apt-get install -y \
   cron \
   curl \
   git \
+  man-db \
   mc \
   openssh-server \
   sudo \
@@ -106,6 +107,11 @@ RUN echo "xdebug.max_nesting_level = 300" >> /etc/php5/apache2/conf.d/20-xdebug.
 RUN echo "xdebug.max_nesting_level = 300" >> /etc/php5/cli/conf.d/20-xdebug.ini
 RUN echo "xdebug.remote_enable = on" >> /etc/php5/apache2/conf.d/20-xdebug.ini
 
+# Install memcached
+RUN apt-get install -y \
+  memcached \
+  php5-memcached
+
 # Install Supervisor
 RUN apt-get install -y \
   supervisor
@@ -115,6 +121,7 @@ RUN echo '[program:apache2]\ncommand=/bin/bash -c "source /etc/apache2/envvars &
 RUN echo '[program:mysql]\ncommand=/usr/bin/pidproxy /var/run/mysqld/mysqld.pid /usr/sbin/mysqld\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
 RUN echo '[program:sshd]\ncommand=/usr/sbin/sshd -D\n\n' >> /etc/supervisor/supervisord.conf
 RUN echo '[program:cron]\ncommand=cron -f\nautorestart=false \n\n' >> /etc/supervisor/supervisord.conf
+RUN echo '[program:memcached]\ncommand=/usr/bin/memcached -m 64 -p 11211 -u memcache -l 127.0.0.1\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
 
 RUN apt-get clean
 
@@ -132,12 +139,6 @@ RUN apt-get install -y nodejs
 RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 RUN sudo apt-get update && sudo apt-get install yarn
-
-# Install memcached
-RUN apt-get install -y \
-  memcached \
-  php5-memcached
-RUN systemctl enable memcached
 
 # Finish
 EXPOSE 80 3306 22 443
