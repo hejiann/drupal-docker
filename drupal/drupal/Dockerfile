@@ -17,6 +17,12 @@ RUN composer install
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# Patch: Allow updating modules with new service dependencies
+# https://www.drupal.org/project/drupal/issues/2863986
+RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
+  patch -p1 < 2863986-2-49.patch && \
+  rm 2863986-2-49.patch
+
 # Patch: Allow blocks to be added to entity displays in Field UI
 # https://www.drupal.org/project/drupal/issues/2878685
 RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-26.patch && \
