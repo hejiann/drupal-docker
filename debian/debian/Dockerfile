@@ -24,7 +24,7 @@ COPY .inputrc /root/.inputrc
 ENV TERM=xterm-256color \
   LANG=C.UTF-8
 
-RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /root/.bashrc
+RUN echo "PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 \"(%s)\")\$ '" >> /root/.bashrc
 RUN echo ". ~/.bash_aliases" >> /root/.bashrc
 
 RUN update-command-not-found
