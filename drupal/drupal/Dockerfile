@@ -164,7 +164,9 @@ RUN /etc/init.d/mysql start && \
 RUN composer require \
   drupal/graphql \
   #drupal/jsonapi \
-  drupal/restui
+  drupal/relaxed \
+  drupal/restui \
+  drupal/simple_oauth
 # jsonapi on Drpual 8.5.x
 # Fatal error on 8.5.x: RelationshipItemNormalizer implements RefinableCacheableDependencyInterface, but should not
 # https://www.drupal.org/project/jsonapi/issues/2926291
@@ -175,7 +177,9 @@ RUN /etc/init.d/mysql start && \
     basic_auth \
     graphql \
     jsonapi \
-    restui
+    relaxed \
+    restui \
+    simple_oauth
 
 # Install data modeling modules
 RUN composer require \
