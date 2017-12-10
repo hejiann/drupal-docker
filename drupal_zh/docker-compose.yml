@@ -1,9 +1,0 @@
-drupal_zh:
-  image: jianhe/drupal_zh
-  container_name: drupal_zh
-  environment:
-    XDEBUG_CONFIG: remote_host=172.17.0.1
-  ports:
-    - 8082:80
-  volumes:
-    - ./web:/var/www/html
