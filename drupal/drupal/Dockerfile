@@ -177,7 +177,9 @@ RUN /etc/init.d/mysql start && \
     basic_auth \
     graphql \
     jsonapi \
-    relaxed \
+    # Circular reference detected for service "multiversion.manager"
+    # https://www.drupal.org/project/multiversion/issues/2905566
+    #relaxed \
     restui \
     simple_oauth
 
