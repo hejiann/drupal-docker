@@ -8,7 +8,8 @@ RUN apt-get install -y \
   cron \
   curl \
   git \
-  sudo
+  sudo \
+  wget
 
 # Install MySQL
 RUN apt-get install -y \
