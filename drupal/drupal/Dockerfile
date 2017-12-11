@@ -88,14 +88,6 @@ RUN /etc/init.d/mysql start && \
 
 RUN composer require drupal/console
 
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drush cset -y system.performance css.preprocess 0 && \
-#  vendor/bin/drush cset -y system.performance js.preprocess 0
-#RUN sed -i 's/debug: false/debug: true/' /var/www/html/sites/default/services.yml && \
-#  sed -i 's/auto_reload: null/auto_reload: true/' /var/www/html/sites/default/services.yml
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal site:mode dev
-
 # Enable modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
@@ -197,15 +189,6 @@ RUN composer require \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     eck
-
-# Install dev tool modules
-RUN git clone git://git.drupal.org/project/config_inspector.git /var/www/html/modules/config_inspector
-RUN vendor/bin/drush dl potx-7.x-3.x --package-handler=git-drupalorg
-# Enable dev tools modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    config_inspector \
-    simpletest
 
 # Install drupal themes
 RUN composer require \
