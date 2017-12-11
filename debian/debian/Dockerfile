@@ -7,6 +7,7 @@ RUN apt-get update
 RUN apt-get install -y \
   cron \
   curl \
+  git \
   sudo
 
 # Install MySQL
