@@ -5,7 +5,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install basic system
 RUN apt-get update
 RUN apt-get install -y \
-  curl
+  cron \
+  curl \
+  sudo
 
 # Install MySQL
 RUN apt-get install -y \
