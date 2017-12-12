@@ -206,6 +206,13 @@ RUN /etc/init.d/mysql start && \
 COPY settings.local.php sites/default/settings.local.php
 RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> sites/default/settings.php
 
+# Install varnish_purge
+RUN composer require \
+  drupal/varnish_purge
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    varnish_purge
+
 # Finish
 EXPOSE 80 3306 22 443
 CMD exec supervisord -n
