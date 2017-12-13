@@ -134,6 +134,13 @@ RUN composer require \
   drupal/panels \
   drupal/panelizer
 
+# Page variants cannot be selected
+# https://www.drupal.org/project/page_manager/issues/2868216
+RUN cd modules/contrib/page_manager && \
+  wget https://www.drupal.org/files/issues/page_manager-page_variants_selection-2868216-7.patch && \
+  patch -p1 < page_manager-page_variants_selection-2868216-7.patch && \
+  rm page_manager-page_variants_selection-2868216-7.patch
+
 # 8.5.x
 # Service 'page_manager.variant_route_filter' for consumer 'router.no_access_checks' does not implement Drupal\Core\Routing\FilterInterface
 # https://www.drupal.org/node/2918564
