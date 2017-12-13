@@ -83,6 +83,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/so
 RUN sudo apt-get update && sudo apt-get install yarn
 
 # Finish
-EXPOSE 80 3306 22 443
+EXPOSE 80 3306 22 443 6081
 CMD exec supervisord -n
 

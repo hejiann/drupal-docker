@@ -2,6 +2,6 @@ drupal:
   image: jianhe/drupal
   container_name: drupal
   ports:
-    - 8081:80
+    - 8081:6081
   volumes:
     - ./web:/var/www/html
