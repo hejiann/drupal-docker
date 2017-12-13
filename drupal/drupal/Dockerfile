@@ -92,7 +92,7 @@ RUN composer require drupal/console
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     ajax_links_api \
-    big_pipe
+    big_pipe \
     block_place \
     charts \
     charts_c3 \
