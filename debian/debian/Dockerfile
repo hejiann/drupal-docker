@@ -48,6 +48,11 @@ RUN apt-get install -y \
   memcached \
   php5-memcached
 
+# Install varnish
+RUN apt-get install -y \
+  varnish
+COPY default.vcl /etc/varnish/default.vcl
+
 # Install Supervisor
 RUN apt-get install -y \
   supervisor
@@ -58,6 +63,7 @@ RUN echo '[program:mysql]\ncommand=/usr/bin/pidproxy /var/run/mysqld/mysqld.pid 
 RUN echo '[program:sshd]\ncommand=/usr/sbin/sshd -D\n\n' >> /etc/supervisor/supervisord.conf
 RUN echo '[program:cron]\ncommand=cron -f\nautorestart=false \n\n' >> /etc/supervisor/supervisord.conf
 RUN echo '[program:memcached]\ncommand=/usr/bin/memcached -m 64 -p 11211 -u memcache -l 127.0.0.1\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
+RUN echo '[program:varnish]\ncommand=/usr/sbin/varnishd -P /run/varnishd.pid -a :6081 -T localhost:6082 -f /etc/varnish/default.vcl -S /etc/varnish/secret -s malloc,256m\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
 
 RUN apt-get clean
 
