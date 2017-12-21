@@ -3,7 +3,7 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install Drupal
 RUN rm -rf /var/www/html
-RUN git clone git://git.drupal.org/project/drupal.git /var/www/html
+RUN git clone -b 8.5.x git://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
