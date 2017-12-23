@@ -88,6 +88,9 @@ RUN /etc/init.d/mysql start && \
 
 RUN composer require drupal/console
 
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal site:mode prod
+
 # Enable modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
@@ -106,7 +109,6 @@ RUN /etc/init.d/mysql start && \
     quicktabs \
     reference_table_formatter \
     rules \
-    settings_tray \
     views_slideshow \
     views_slideshow_cycle
 
