@@ -201,6 +201,7 @@ RUN /etc/init.d/mysql start && \
 
 # Install drupal themes
 RUN composer require \
+  drupal/bootstrap \
   drupal/radix
 
 # Install memcache modules
@@ -220,7 +221,7 @@ RUN composer require \
   drupal/varnish_purge
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
-    varnish_purge
+    varnish_purger
 
 # Finish
 EXPOSE 80 3306 22 443

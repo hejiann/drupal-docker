@@ -25,6 +25,9 @@ RUN apt-get install -y \
   php5-curl \
   libapache2-mod-php5
 
+# Setup apcu
+RUN echo 'apc.shm_size=64M' >> /etc/php5/mods-available/apcu.ini
+
 # Setup PHP
 RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/apache2/php.ini
 RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/cli/php.ini
