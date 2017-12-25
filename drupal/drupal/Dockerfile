@@ -218,6 +218,7 @@ RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> si
 
 # Install varnish_purge
 RUN composer require \
+  drupal/purge \
   drupal/varnish_purge
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
