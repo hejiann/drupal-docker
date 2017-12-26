@@ -33,6 +33,10 @@ RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/apache2/php.in
 RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/cli/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/apache2/php.ini
 RUN sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/cli/php.ini
+RUN sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/apache2/php.ini
+RUN sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/cli/php.ini
+RUN sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/apache2/php.ini
+RUN sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/cli/php.ini
 # eva module need always_populate_raw_post_data PHP setting be set to -1
 RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/apache2/php.ini
 RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/cli/php.ini
