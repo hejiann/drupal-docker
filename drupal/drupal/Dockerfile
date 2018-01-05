@@ -123,7 +123,7 @@ RUN composer require \
 RUN git clone git://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
 # Install recent migrate_plus module
 RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
-RUN cd modules/contrib/migrate_plus && \
+RUN cd modules/migrate_plus && \
   wget https://www.drupal.org/files/issues/2933306-config_entity-2.patch && \
   patch -p1 < 2933306-config_entity-2.patch && \
   rm 2933306-config_entity-2.patch
