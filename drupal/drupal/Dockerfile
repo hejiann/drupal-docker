@@ -25,9 +25,9 @@ RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
 
 # Patch: Allow blocks to be added to entity displays in Field UI
 # https://www.drupal.org/project/drupal/issues/2878685
-#RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-26.patch && \
-#  patch -p1 < 2878685-block-field_ui-26.patch && \
-#  rm 2878685-block-field_ui-26.patch
+RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-36.patch && \
+  patch -p1 < 2878685-block-field_ui-36.patch && \
+  rm 2878685-block-field_ui-36.patch
 
 # Install Drupal modules
 RUN composer require \
@@ -169,6 +169,7 @@ RUN cd modules/contrib/panels && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     #ds \
+    layout_builder \
     page_manager_ui \
     panelizer \
     panels
