@@ -92,11 +92,12 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush si -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-RUN composer require drupal/console
+# version 1.4 issue: https://github.com/hechoendrupal/drupal-console/issues/3674
+# Dflydev\DotAccessConfiguration\YamlFileConfigurationBuilder::__construct() must be of the type array error
+RUN composer require drupal/console:~1.3
 
-# PHP Catchable fatal error:  Argument 1 passed to Dflydev\DotAccessConfiguration\YamlFileConfigurationBuilder::__construct() must be of the type array, null given, called in /var/www/html/vendor/drupal/console-core/src/Utils/ConfigurationManager.php on line 68 and defined in /var/www/html/vendor/dflydev/dot-access-configuration/src/Dflydev/DotAccessConfiguration/YamlFileConfigurationBuilder.php on line 31
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drupal site:mode prod
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal site:mode prod
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
