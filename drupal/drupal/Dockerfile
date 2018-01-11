@@ -11,6 +11,12 @@ RUN composer install
 
 #RUN cd core && yarn install
 
+# Patch: Allow Tours to be taken by users that cannot access the Toolbar
+# https://www.drupal.org/project/drupal/issues/2069073
+RUN wget https://www.drupal.org/files/issues/2069073-23.patch && \
+  patch -p1 < 2069073-23.patch && \
+  rm 2069073-23.patch
+
 # Patch: View output is not used for entityreference options
 # https://www.drupal.org/node/2174633
 #RUN wget https://www.drupal.org/files/issues/2174633-143-entity-reference.patch && \
