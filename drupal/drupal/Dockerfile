@@ -94,8 +94,9 @@ RUN /etc/init.d/mysql start && \
 
 RUN composer require drupal/console
 
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal site:mode prod
+# PHP Catchable fatal error:  Argument 1 passed to Dflydev\DotAccessConfiguration\YamlFileConfigurationBuilder::__construct() must be of the type array, null given, called in /var/www/html/vendor/drupal/console-core/src/Utils/ConfigurationManager.php on line 68 and defined in /var/www/html/vendor/dflydev/dot-access-configuration/src/Dflydev/DotAccessConfiguration/YamlFileConfigurationBuilder.php on line 31
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal site:mode prod
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
