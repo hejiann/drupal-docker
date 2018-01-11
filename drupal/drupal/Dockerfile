@@ -92,9 +92,7 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush si -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
-# version 1.4 issue: https://github.com/hechoendrupal/drupal-console/issues/3674
-# Dflydev\DotAccessConfiguration\YamlFileConfigurationBuilder::__construct() must be of the type array error
-RUN composer require drupal/console:~1.3
+RUN composer require drupal/console
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal site:mode prod
