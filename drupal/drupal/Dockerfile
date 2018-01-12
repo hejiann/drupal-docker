@@ -164,14 +164,19 @@ RUN cd modules/contrib/page_manager && \
   patch -p1 < page_manager_variant_route_filter-2918564.patch && \
   rm page_manager_variant_route_filter-2918564.patch
 
-# Install panels
-#RUN git clone git://git.drupal.org/project/panels.git -b 8.x-4.x /var/www/html/modules/panels
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
 RUN cd modules/contrib/panels && \
   wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
+
+# Patch: 8.5.x User's temp stores has been moved to core
+# https://www.drupal.org/project/ctools/issues/2936263
+RUN cd modules/contrib/ctools && \
+  wget https://www.drupal.org/files/issues/2936263-tempstore-3.patch && \
+  patch -p1 < 2936263-tempstore-3.patch && \
+  rm 2936263-tempstore-3.patch
 
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
