@@ -13,9 +13,9 @@ RUN composer install
 
 # Patch: Allow Tours to be taken by users that cannot access the Toolbar
 # https://www.drupal.org/project/drupal/issues/2069073
-RUN wget https://www.drupal.org/files/issues/2069073-23.patch && \
-  patch -p1 < 2069073-23.patch && \
-  rm 2069073-23.patch
+RUN wget https://www.drupal.org/files/issues/2069073-38.patch && \
+  patch -p1 < 2069073-38.patch && \
+  rm 2069073-38.patch
 
 # Patch: View output is not used for entityreference options
 # https://www.drupal.org/node/2174633
@@ -40,6 +40,7 @@ RUN composer require \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_class \
+  drupal/conditional_fields \
   drupal/custom_formatters \
   drupal/facets \
   drupal/features \
@@ -103,6 +104,7 @@ RUN /etc/init.d/mysql start && \
     ajax_links_api \
     big_pipe \
     block_place \
+    conditional_fields \
     charts \
     charts_c3 \
     custom_formatters \
