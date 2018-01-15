@@ -11,13 +11,10 @@ RUN apt-get install -y \
   sudo \
   wget
 
-# Install MySQL
-RUN apt-get install -y \
-  mysql-server
-
-# Install PHP
+# Install Apache/MySQL/PHP
 RUN apt-get install -y \
   apache2 \
+  mysql-server \
   php-apc \
   php5-cli \
   php5-mysql \
@@ -29,23 +26,23 @@ RUN apt-get install -y \
 RUN echo 'apc.shm_size=64M' >> /etc/php5/mods-available/apcu.ini
 
 # Setup PHP
-RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/apache2/php.ini
-RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/cli/php.ini
-RUN sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/apache2/php.ini
-RUN sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/cli/php.ini
-RUN sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/apache2/php.ini
-RUN sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/cli/php.ini
-RUN sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/apache2/php.ini
-RUN sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/cli/php.ini
+RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/apache2/php.ini && \
+  sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php5/cli/php.ini && \
+  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/apache2/php.ini && \
+  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php5/cli/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/apache2/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php5/cli/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/apache2/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php5/cli/php.ini
 # eva module need always_populate_raw_post_data PHP setting be set to -1
-RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/apache2/php.ini
-RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/cli/php.ini
+RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/apache2/php.ini && \
+  sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php5/cli/php.ini
 
 # Setup Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-RUN a2enmod rewrite
-RUN a2enmod ssl
-RUN a2ensite default-ssl.conf
+RUN a2enmod rewrite && \
+  a2enmod ssl && \
+  a2ensite default-ssl.conf
 
 # Setup MySQL, bind on all addresses.
 RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/my.cnf
