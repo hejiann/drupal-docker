@@ -171,13 +171,6 @@ RUN cd modules/contrib/panels && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
 
-# Patch: 8.5.x User's temp stores has been moved to core
-# https://www.drupal.org/project/ctools/issues/2936263
-RUN cd modules/contrib/ctools && \
-  wget https://www.drupal.org/files/issues/2936263-tempstore-3.patch && \
-  patch -p1 < 2936263-tempstore-3.patch && \
-  rm 2936263-tempstore-3.patch
-
 # Enable layout modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
