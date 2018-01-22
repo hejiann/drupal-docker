@@ -211,6 +211,13 @@ RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     eck
 
+# eck issue: Tests are failed
+RUN cd modules/contrib/eck && \
+  wget https://www.drupal.org/files/issues/eck-tests_failed_D8.6-2937133-2-D8.patch && \
+  patch -p1 < eck-tests_failed_D8.6-2937133-2-D8.patch && \
+  rm eck-tests_failed_D8.6-2937133-2-D8.patch
+
+# Remove on 18.01
 # Install drupal themes
 RUN composer require \
   drupal/bootstrap \
