@@ -23,6 +23,12 @@ RUN wget https://www.drupal.org/files/issues/2069073-38.patch && \
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# Patch: Can't create comments when comment is a base field
+# https://www.drupal.org/project/drupal/issues/2855068
+RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
+  patch -p1 < 2855068-8_0.patch && \
+  rm 2855068-8_0.patch
+
 # Patch: Allow updating modules with new service dependencies
 # https://www.drupal.org/project/drupal/issues/2863986
 RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
