@@ -58,6 +58,7 @@ RUN composer require \
   drupal/quicktabs \
   drupal/reference_table_formatter \
   drupal/rules \
+  drupal/search_api_solr \
   drupal/token \
   drupal/views_slideshow
 
