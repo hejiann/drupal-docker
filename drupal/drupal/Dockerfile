@@ -102,8 +102,10 @@ RUN /etc/init.d/mysql start && \
 
 RUN composer require drupal/console
 
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal site:mode prod
+# Issue: "side:mode prod" cause 'Unable to parse at line 130 (near "{}")' issue on most recent drupal 8.5.x
+# https://github.com/hechoendrupal/drupal-console/issues/3749
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal site:mode prod
 
 # Enable modules
 RUN /etc/init.d/mysql start && \
