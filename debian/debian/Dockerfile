@@ -57,6 +57,11 @@ RUN apt-get install -y \
   varnish
 COPY default.vcl /etc/varnish/default.vcl
 
+# Install composer and yarn
+sudo apt-get intall -y \
+  composer \
+  yarn
+
 # Install Supervisor
 RUN apt-get install -y \
   supervisor
@@ -70,21 +75,6 @@ RUN echo '[program:memcached]\ncommand=/usr/bin/memcached -m 64 -p 11211 -u memc
 RUN echo '[program:varnish]\ncommand=/usr/sbin/varnishd -P /run/varnishd.pid -a :6081 -T localhost:6082 -f /etc/varnish/default.vcl -S /etc/varnish/secret -s malloc,256m\nautorestart=true\n\n' >> /etc/supervisor/supervisord.conf
 
 RUN apt-get clean
-
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php
-#RUN curl -sS https://install.phpcomposer.com/installer | php
-RUN mv composer.phar /usr/local/bin/composer
-#RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
-
-# Install yarn
-# webpack needs node version >=5.10
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-RUN apt-get install -y nodejs
-
-RUN curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-RUN sudo apt-get update && sudo apt-get install yarn
 
 # Finish
 EXPOSE 80 3306 22 443 6081
