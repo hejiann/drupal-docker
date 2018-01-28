@@ -15,15 +15,17 @@ RUN apt-get install -y \
 RUN apt-get install -y \
   apache2 \
   mysql-server \
-  php-apcu \
   php-cli \
-  php-mysql \
-  php-gd \
-  php-curl \
   libapache2-mod-php
 
-# Setup apcu
-RUN echo 'apc.shm_size=64M' >> /etc/php/7.0/mods-available/apcu.ini
+# Setup MySQL, bind on all addresses.
+RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/my.cnf
+
+# Setup Apache
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+RUN a2enmod rewrite && \
+  a2enmod ssl && \
+  a2ensite default-ssl.conf
 
 # Setup PHP
 RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php/7.0/apache2/php.ini && \
@@ -38,14 +40,17 @@ RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php/7.0/apache2/php
 RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.0/apache2/php.ini && \
   sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.0/cli/php.ini
 
-# Setup Apache
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-RUN a2enmod rewrite && \
-  a2enmod ssl && \
-  a2ensite default-ssl.conf
+# Install PHP extensions
+RUN apt-get install -y \
+  php-apcu \
+  php-curl \
+  php-gd \
+  php-mbstring \
+  php-mysql \
+  php-xml
 
-# Setup MySQL, bind on all addresses.
-RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/my.cnf
+# Setup apcu
+RUN echo 'apc.shm_size=64M' >> /etc/php/7.0/mods-available/apcu.ini
 
 # Install memcached
 RUN apt-get install -y \
