@@ -15,12 +15,12 @@ RUN apt-get install -y \
 RUN apt-get install -y \
   apache2 \
   mysql-server \
-  php-apc \
-  php5-cli \
-  php5-mysql \
-  php5-gd \
-  php5-curl \
-  libapache2-mod-php5
+  php-apcu \
+  php-cli \
+  php-mysql \
+  php-gd \
+  php-curl \
+  libapache2-mod-php
 
 # Setup apcu
 RUN echo 'apc.shm_size=64M' >> /etc/php5/mods-available/apcu.ini
