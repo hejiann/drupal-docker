@@ -58,7 +58,7 @@ RUN apt-get install -y \
 COPY default.vcl /etc/varnish/default.vcl
 
 # Install composer and yarn
-RUN sudo apt-get intall -y \
+RUN sudo apt-get install -y \
   composer \
   yarn
 
