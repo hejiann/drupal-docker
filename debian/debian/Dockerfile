@@ -3,7 +3,7 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install basic system
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get dist-upgrade -y
 RUN apt-get install -y \
   cron
 
