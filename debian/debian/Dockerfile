@@ -5,7 +5,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # Install basic system
 RUN apt-get update && apt-get dist-upgrade -y
 RUN apt-get install -y \
-  cron
+  cron \
+  curl
 
 # Install Apache/MySQL/PHP
 RUN apt-get install -y \
@@ -64,9 +65,9 @@ RUN apt-get install -y \
 
 # Install nodejs and yarn
 RUN apt-get install -y gnupg apt-transport-https && \
-  curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
-  sudo apt-get update && sudo apt-get install yarn
+  curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  apt-get update && apt-get install yarn
 
 # Install Supervisor
 RUN apt-get install -y \
