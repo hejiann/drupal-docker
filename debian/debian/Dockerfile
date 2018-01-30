@@ -3,13 +3,9 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install basic system
-RUN apt-get update
+RUN apt-get update && apt-get upgrade
 RUN apt-get install -y \
-  cron \
-  curl \
-  git \
-  sudo \
-  wget
+  cron
 
 # Install Apache/MySQL/PHP
 RUN apt-get install -y \
@@ -62,10 +58,15 @@ RUN apt-get install -y \
   varnish
 COPY default.vcl /etc/varnish/default.vcl
 
-# Install composer and yarn
-RUN sudo apt-get install -y \
-  composer \
-  yarn
+# Install composer
+RUN apt-get install -y \
+  composer
+
+# Install nodejs and yarn
+RUN apt-get install -y gnupg apt-transport-https && \
+  curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list && \
+  sudo apt-get update && sudo apt-get install yarn
 
 # Install Supervisor
 RUN apt-get install -y \

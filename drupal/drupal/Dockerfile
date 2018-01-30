@@ -1,6 +1,11 @@
 FROM jianhe/debian
 MAINTAINER Jian He <hejian.he@gmail.com>
 
+# Install system packages
+RUN apt-get install -y \
+  git \
+  wget
+
 # Install Drupal
 RUN rm -rf /var/www/html
 RUN git clone -b 8.6.x git://git.drupal.org/project/drupal.git /var/www/html
