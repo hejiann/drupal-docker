@@ -44,12 +44,6 @@ RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-36.patch && 
   patch -p1 < 2878685-block-field_ui-36.patch && \
   rm 2878685-block-field_ui-36.patch
 
-# Patch: Use the Layout Builder for EntityViewDisplays
-# https://www.drupal.org/project/drupal/issues/2922033
-RUN wget https://www.drupal.org/files/issues/2922033-defaults-89.patch && \
-  patch -p1 < 2922033-defaults-89.patch && \
-  rm 2922033-defaults-89.patch
-
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
 RUN wget https://www.drupal.org/files/issues/2940015-block-contextual-link-2.patch && \
