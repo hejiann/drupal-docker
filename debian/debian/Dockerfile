@@ -15,8 +15,9 @@ RUN apt-get install -y \
   php-cli \
   libapache2-mod-php
 
-# Setup MySQL, bind on all addresses.
-RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/my.cnf
+# Setup MySQL
+RUN sed -i -e 's/^bind-address\s*=\s*127.0.0.1/#bind-address = 127.0.0.1/' /etc/mysql/mariadb.conf.d/50-server.cnf && \
+  mysql -e "update user set plugin='' where User='root'; flush priviliges;"
 
 # Setup Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
