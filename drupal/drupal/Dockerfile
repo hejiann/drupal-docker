@@ -40,9 +40,9 @@ RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
 
 # Patch: Allow blocks to be added to entity displays in Field UI
 # https://www.drupal.org/project/drupal/issues/2878685
-RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-36.patch && \
-  patch -p1 < 2878685-block-field_ui-36.patch && \
-  rm 2878685-block-field_ui-36.patch
+#RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-36.patch && \
+#  patch -p1 < 2878685-block-field_ui-36.patch && \
+#  rm 2878685-block-field_ui-36.patch
 
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
@@ -143,7 +143,8 @@ RUN composer require \
   drupal/csv_serialization \
   drupal/default_content \
   #drupal/migrate_plus \
-  drupal/migrate_source_csv
+  drupal/migrate_source_csv \
+  drupal/migrate_source_xls
   #drupal/migrate_tools
 # Install recent migrate_tools
 RUN git clone git://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
