@@ -6,6 +6,9 @@ RUN apt-get install -y \
   git \
   wget
 
+# Mysql server config
+COPY 60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
+
 # Install Drupal
 RUN rm -rf /var/www/html
 RUN git clone -b 8.6.x git://git.drupal.org/project/drupal.git /var/www/html
