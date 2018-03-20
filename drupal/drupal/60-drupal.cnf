@@ -1,0 +1,20 @@
+[mysqld]
+max_connections = 150
+max_user_connections = 150
+key_buffer = 36M
+myisam_sort_buffer_size = 64M
+join_buffer_size = 2M
+read_buffer_size = 2M
+sort_buffer_size = 3M
+table_cache = 1024
+thread_cache_size = 286
+interactive_timeout = 25
+wait_timeout = 1800
+query_cache_size = 16M
+query_cache_type = 1
+tmp_table_size = 16M
+
+innodb_buffer_pool_instances = 1
+query_cache_limit = 2M
+skip-name-resolve = 1
+table_open_cache = 2048
