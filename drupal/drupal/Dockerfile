@@ -156,6 +156,12 @@ RUN cd modules/migrate_plus && \
   wget https://www.drupal.org/files/issues/2933306-config_entity-2.patch && \
   patch -p1 < 2933306-config_entity-2.patch && \
   rm 2933306-config_entity-2.patch
+# PATCH: migrate_source_xls does not support constants defined in migration configuration
+# https://www.drupal.org/project/migrate_source_xls/issues/2954477
+RUN cd modules/contrib/migrate_source_xls && \
+  wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-2.patch
+  patch -p1 < 2954477-constants-2.patch && \
+  rm 2954477-constants-2.patch
 
 # Enable migrate modules
 RUN /etc/init.d/mysql start && \
