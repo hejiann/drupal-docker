@@ -82,9 +82,9 @@ RUN cd modules/contrib/php && \
   rm php_condition_check_empty-2678430-13.patch
 
 # Install charts
-RUN composer require drupal/charts && \
-  cd modules/contrib/charts/modules/charts_c3 && \
-  composer install
+RUN composer require drupal/charts
+#  cd modules/contrib/charts/modules/charts_c3 && \
+#  composer install
 
 # Install latest eva
 RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/eva
