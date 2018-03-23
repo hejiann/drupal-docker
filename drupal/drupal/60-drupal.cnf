@@ -10,8 +10,11 @@ table_cache = 1024
 thread_cache_size = 286
 interactive_timeout = 25
 wait_timeout = 1800
-query_cache_limit = 1M
 query_cache_size = 16M
 query_cache_type = 1
 tmp_table_size = 16M
-innodb-flush-log-at-rx-commit = 2
+
+innodb_buffer_pool_instances = 1
+query_cache_limit = 2M
+skip-name-resolve = 1
+table_open_cache = 2048
