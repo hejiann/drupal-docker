@@ -60,13 +60,12 @@ RUN composer require \
   drupal/block_class \
   drupal/conditional_fields \
   drupal/custom_formatters \
+  drupal/entity_print \
   drupal/facets \
   drupal/features \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
-  drupal/menu_block \
-  drupal/php \
   drupal/quicktabs \
   drupal/reference_table_formatter \
   drupal/rules \
@@ -120,30 +119,8 @@ RUN composer require drupal/console
 
 # Issue: "side:mode prod" cause 'Unable to parse at line 130 (near "{}")' issue on most recent drupal 8.5.x
 # https://github.com/hechoendrupal/drupal-console/issues/3749
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drupal site:mode prod
-
-# Enable modules
 RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    ajax_links_api \
-    big_pipe \
-    block_place \
-    conditional_fields \
-    charts \
-    charts_c3 \
-    custom_formatters \
-    eva \
-    features_ui \
-    field_formatter_class \
-    field_group \
-    menu_block \
-    php \
-    quicktabs \
-    reference_table_formatter \
-    rules \
-    views_slideshow \
-    views_slideshow_cycle
+  vendor/bin/drupal site:mode prod
 
 # Install migrate modules
 RUN composer require \
@@ -169,12 +146,6 @@ RUN cd modules/contrib/migrate_source_xls && \
   wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-2.patch
   patch -p1 < 2954477-constants-2.patch && \
   rm 2954477-constants-2.patch
-
-# Enable migrate modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    default_content \
-    migrate_tools
 
 # Install layout modules
 RUN composer require \
@@ -204,15 +175,6 @@ RUN cd modules/contrib/panels && \
   wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
-
-# Enable layout modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    #ds \
-    layout_builder \
-    page_manager_ui \
-    panelizer \
-    panels
 
 # Install api-first modules
 RUN composer require \
