@@ -164,10 +164,10 @@ RUN cd modules/contrib/page_manager && \
 # 8.5.x
 # Service 'page_manager.variant_route_filter' for consumer 'router.no_access_checks' does not implement Drupal\Core\Routing\FilterInterface
 # https://www.drupal.org/node/2918564
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/page_manager_variant_route_filter-2918564.patch && \
-  patch -p1 < page_manager_variant_route_filter-2918564.patch && \
-  rm page_manager_variant_route_filter-2918564.patch
+#RUN cd modules/contrib/page_manager && \
+#  wget https://www.drupal.org/files/issues/page_manager_variant_route_filter-2918564.patch && \
+#  patch -p1 < page_manager_variant_route_filter-2918564.patch && \
+#  rm page_manager_variant_route_filter-2918564.patch
 
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
