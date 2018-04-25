@@ -111,7 +111,7 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 
 RUN mkdir -p /var/www/private && \
   chown -R www-data:www-data /var/www/private && \
-  echo "$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
+  echo "\$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush si -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
