@@ -75,10 +75,10 @@ RUN composer require \
 
 # If PHP filter is empty, module should return TRUE and not execute code
 # https://www.drupal.org/project/php/issues/2678430
-RUN cd modules/contrib/php && \
-  wget https://www.drupal.org/files/issues/php_condition_check_empty-2678430-13.patch && \
-  patch -p1 < php_condition_check_empty-2678430-13.patch && \
-  rm php_condition_check_empty-2678430-13.patch
+#RUN cd modules/contrib/php && \
+#  wget https://www.drupal.org/files/issues/php_condition_check_empty-2678430-13.patch && \
+#  patch -p1 < php_condition_check_empty-2678430-13.patch && \
+#  rm php_condition_check_empty-2678430-13.patch
 
 # Install charts
 RUN composer require drupal/charts
