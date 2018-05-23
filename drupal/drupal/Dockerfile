@@ -76,10 +76,10 @@ RUN composer require \
 
 # If PHP filter is empty, module should return TRUE and not execute code
 # https://www.drupal.org/project/php/issues/2678430
-RUN cd modules/contrib/php && \
-  wget https://www.drupal.org/files/issues/php_condition_check_empty-2678430-13.patch && \
-  patch -p1 < php_condition_check_empty-2678430-13.patch && \
-  rm php_condition_check_empty-2678430-13.patch
+#RUN cd modules/contrib/php && \
+#  wget https://www.drupal.org/files/issues/php_condition_check_empty-2678430-13.patch && \
+#  patch -p1 < php_condition_check_empty-2678430-13.patch && \
+#  rm php_condition_check_empty-2678430-13.patch
 
 # Install charts
 RUN composer require drupal/charts
@@ -111,7 +111,7 @@ RUN mkdir -p /var/www/html/sites/default/files && \
 
 RUN mkdir -p /var/www/private && \
   chown -R www-data:www-data /var/www/private && \
-  echo "$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
+  echo "\$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
 
 RUN /etc/init.d/mysql start && \
   vendor/bin/drush si -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
@@ -144,7 +144,7 @@ RUN cd modules/migrate_plus && \
 # PATCH: migrate_source_xls does not support constants defined in migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954477
 RUN cd modules/contrib/migrate_source_xls && \
-  wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-2.patch
+  wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-2.patch && \
   patch -p1 < 2954477-constants-2.patch && \
   rm 2954477-constants-2.patch
 
