@@ -4,6 +4,7 @@ MAINTAINER Jian He <hejian.he@gmail.com>
 # Install system packages
 RUN apt-get install -y \
   git \
+  unzip \
   wget
 
 # Mysql server config
