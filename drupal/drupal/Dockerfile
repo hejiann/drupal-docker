@@ -141,6 +141,12 @@ RUN cd modules/migrate_plus && \
   wget https://www.drupal.org/files/issues/2933306-config_entity-2.patch && \
   patch -p1 < 2933306-config_entity-2.patch && \
   rm 2933306-config_entity-2.patch
+# PATCH: EntityGenerate does not process the values correctly
+# https://www.drupal.org/project/migrate_plus/issues/2975266
+RUN cd modules/migrate_plus && \
+  wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
+  patch -p1 < 2975266-values-2.patch && \
+  rm 2975266-values-2.patch
 # PATCH: migrate_source_xls does not support constants defined in migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954477
 RUN cd modules/contrib/migrate_source_xls && \
