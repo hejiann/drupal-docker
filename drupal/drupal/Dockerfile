@@ -93,9 +93,17 @@ RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modu
 #RUN composer require drupal/field_widget_class
 RUN git clone git://git.drupal.org/project/field_widget_class.git -b 8.x-1.x /var/www/html/modules/field_widget_class
 # Patch: No hook alter to override Field Widget wrappers created by WidgetBase::form
-RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
+RUN cd modules/field_widget_class && \
+  wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
+
+# Patch: Fatal error: Call to a member function buildMultiple() on null in EntityToTableRenderer.php
+# https://www.drupal.org/project/reference_table_formatter/issues/2866712
+RUN cd modules/contrib/reference_table_formater && \
+  wget https://www.drupal.org/files/issues/2866712-call-to-a-member-function-on-null-4.patch && \
+  patch -pa < 2866712-call-to-a-member-function-on-null-4.patch && \
+  rm 2866712-call-to-a-member-function-on-null-4.patch
 
 # Install drush
 RUN composer require drush/drush
