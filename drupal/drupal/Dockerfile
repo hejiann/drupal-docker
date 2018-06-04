@@ -99,7 +99,7 @@ RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch &
 
 # Patch: Fatal error: Call to a member function buildMultiple() on null in EntityToTableRenderer.php
 # https://www.drupal.org/project/reference_table_formatter/issues/2866712
-RUN cd modules/contrib/reference_table_formater && \
+RUN cd modules/contrib/reference_table_formatter && \
   wget https://www.drupal.org/files/issues/2866712-call-to-a-member-function-on-null-4.patch && \
   patch -pa < 2866712-call-to-a-member-function-on-null-4.patch && \
   rm 2866712-call-to-a-member-function-on-null-4.patch
