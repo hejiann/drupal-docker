@@ -93,8 +93,7 @@ RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modu
 #RUN composer require drupal/field_widget_class
 RUN git clone git://git.drupal.org/project/field_widget_class.git -b 8.x-1.x /var/www/html/modules/field_widget_class
 # Patch: No hook alter to override Field Widget wrappers created by WidgetBase::form
-RUN cd modules/field_widget_class && \
-  wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
+RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
 
