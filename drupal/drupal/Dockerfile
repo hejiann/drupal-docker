@@ -67,6 +67,7 @@ RUN composer require \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
+  drupal/pinyin \
   drupal/quicktabs \
   drupal/reference_table_formatter \
   drupal/rules \
