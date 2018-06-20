@@ -61,7 +61,6 @@ RUN composer require \
   drupal/block_class \
   drupal/conditional_fields \
   drupal/custom_formatters \
-  drupal/entity_print \
   drupal/facets \
   drupal/features \
   drupal/field_formatter_class \
@@ -86,6 +85,10 @@ RUN composer require \
 RUN composer require drupal/charts
 #  cd modules/contrib/charts/modules/charts_c3 && \
 #  composer install
+
+# Install entity_print
+RUN composer require drupal/entity_print \
+  mikehaertl/phpwkhtmltopdf
 
 # Install latest eva
 RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/eva
