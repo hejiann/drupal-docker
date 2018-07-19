@@ -83,12 +83,20 @@ RUN composer require \
 
 # Install charts
 RUN composer require drupal/charts
-#  cd modules/contrib/charts/modules/charts_c3 && \
-#  composer install
+RUN mkdir libraries -p && \
+  wget https://github.com/d3/d3/archive/v3.5.17.zip && \
+  unzip v3.5.17.zip && \
+  mv d3-3.5.17 libraries/d3
 
 # Install entity_print
 RUN composer require drupal/entity_print \
   mikehaertl/phpwkhtmltopdf
+# PDF generation errors with DomPDF due to drupalSettings
+# https://www.drupal.org/project/entity_print/issues/2969184
+RUN cd modules/contrib/entity_print && \
+  wget https://www.drupal.org/files/issues/2018-05-03/entity_print-dompdf-2969184.patch && \
+  patch -p1 < entity_print-dompdf-2969184.patch && \
+  rm entity_print-dompdf-2969184.patch
 
 # Install latest eva
 RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/eva
