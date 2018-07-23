@@ -56,6 +56,7 @@ RUN wget https://www.drupal.org/files/issues/2940015-block-contextual-link-2.pat
 
 # Install Drupal modules
 RUN composer require \
+  drupal/r4032login \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_class \
@@ -256,6 +257,11 @@ RUN /etc/init.d/mysql start && \
     memcache_storage
 COPY settings.local.php sites/default/settings.local.php
 RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> sites/default/settings.php
+
+# Enable modlues
+RUN /etc/init.d/mysql start && \
+  vendor/bin/drupal moi -y \
+    r4032login
 
 # Install varnish_purge
 RUN composer require \
