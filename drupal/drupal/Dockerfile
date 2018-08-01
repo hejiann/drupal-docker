@@ -208,8 +208,9 @@ RUN composer require \
   drupal/graphql \
   #drupal/jsonapi \
   drupal/relaxed \
-  drupal/restui \
-  drupal/simple_oauth
+  drupal/restui
+  # [ERROR] Incomplete or missing schema for simple_oauth.oauth2_token.bundle.
+  #drupal/simple_oauth
 # jsonapi on Drpual 8.5.x
 # Fatal error on 8.5.x: RelationshipItemNormalizer implements RefinableCacheableDependencyInterface, but should not
 # https://www.drupal.org/project/jsonapi/issues/2926291
@@ -223,8 +224,8 @@ RUN /etc/init.d/mysql start && \
     # Circular reference detected for service "multiversion.manager"
     # https://www.drupal.org/project/multiversion/issues/2905566
     #relaxed \
-    restui \
-    simple_oauth
+    restui
+    #simple_oauth
 
 # Install data modeling modules
 RUN composer require \
