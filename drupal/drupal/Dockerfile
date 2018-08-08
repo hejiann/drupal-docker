@@ -228,12 +228,12 @@ RUN /etc/init.d/mysql start && \
     #simple_oauth
 
 # Install data modeling modules
-RUN composer require \
-  drupal/eck
+#RUN composer require \
+#  drupal/eck
 # Enable data modeling modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    eck
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal moi -y \
+#    eck
 
 # eck issue: Tests are failed
 RUN cd modules/contrib/eck && \
