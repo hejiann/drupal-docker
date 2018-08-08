@@ -87,7 +87,10 @@ RUN composer require drupal/charts
 RUN mkdir libraries -p && \
   wget https://github.com/d3/d3/archive/v3.5.17.zip && \
   unzip v3.5.17.zip && \
-  mv d3-3.5.17 libraries/d3
+  mv d3-3.5.17 libraries/d3 && \
+  wget https://github.com/c3js/c3/archive/v0.4.18.zip && \
+  unzip v0.4.18.zip && \
+  mv c3-0.4.18 libraries/c3
 
 # Install entity_print
 RUN composer require drupal/entity_print \

@@ -18,3 +18,6 @@ innodb_buffer_pool_instances = 1
 query_cache_limit = 2M
 skip-name-resolve = 1
 table_open_cache = 2048
+
+innodb_log_file_size=640M
+max_allowed_packet = 64M
