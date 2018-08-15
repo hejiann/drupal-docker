@@ -231,18 +231,18 @@ RUN /etc/init.d/mysql start && \
     #simple_oauth
 
 # Install data modeling modules
-RUN composer require \
-  drupal/eck
+#RUN composer require \
+#  drupal/eck
 # Enable data modeling modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    eck
+#RUN /etc/init.d/mysql start && \
+#  vendor/bin/drupal moi -y \
+#    eck
 
 # eck issue: Tests are failed
-RUN cd modules/contrib/eck && \
-  wget https://www.drupal.org/files/issues/eck-tests_failed_D8.6-2937133-2-D8.patch && \
-  patch -p1 < eck-tests_failed_D8.6-2937133-2-D8.patch && \
-  rm eck-tests_failed_D8.6-2937133-2-D8.patch
+#RUN cd modules/contrib/eck && \
+#  wget https://www.drupal.org/files/issues/eck-tests_failed_D8.6-2937133-2-D8.patch && \
+#  patch -p1 < eck-tests_failed_D8.6-2937133-2-D8.patch && \
+#  rm eck-tests_failed_D8.6-2937133-2-D8.patch
 
 # Install memcache modules
 RUN composer require \
