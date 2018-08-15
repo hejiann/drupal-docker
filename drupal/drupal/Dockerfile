@@ -244,12 +244,6 @@ RUN cd modules/contrib/eck && \
   patch -p1 < eck-tests_failed_D8.6-2937133-2-D8.patch && \
   rm eck-tests_failed_D8.6-2937133-2-D8.patch
 
-# Remove on 18.01
-# Install drupal themes
-RUN composer require \
-  drupal/bootstrap \
-  drupal/radix
-
 # Install memcache modules
 RUN composer require \
   drupal/memcache \
