@@ -73,6 +73,7 @@ RUN composer require \
   drupal/rules \
   drupal/search_api_solr \
   drupal/token \
+  drupal/token_filter \
   drupal/views_slideshow
 
 # If PHP filter is empty, module should return TRUE and not execute code
