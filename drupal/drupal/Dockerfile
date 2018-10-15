@@ -203,16 +203,17 @@ RUN cd modules/contrib/panels && \
 
 # Install api-first modules
 RUN composer require \
-  drupal/graphql \
-  #drupal/jsonapi \
+  #drupal/graphql \
+  drupal/jsonapi \
   drupal/relaxed \
   drupal/restui
   # [ERROR] Incomplete or missing schema for simple_oauth.oauth2_token.bundle.
   #drupal/simple_oauth
-# jsonapi on Drpual 8.5.x
-# Fatal error on 8.5.x: RelationshipItemNormalizer implements RefinableCacheableDependencyInterface, but should not
-# https://www.drupal.org/project/jsonapi/issues/2926291
-RUN git clone git://git.drupal.org/project/jsonapi.git /var/www/html/modules/jsonapi
+
+# Add missing @group annotations for several test classes.
+# https://github.com/drupal-graphql/graphql/pull/679
+RUN git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/graphql
+
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
