@@ -211,7 +211,8 @@ RUN composer require \
 
 # Add missing @group annotations for several test classes.
 # https://github.com/drupal-graphql/graphql/pull/679
-RUN git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/graphql
+RUN composer require webonyx/graphql-php && \
+  git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/graphql
 
 # Enable api-first modules
 RUN /etc/init.d/mysql start && \
