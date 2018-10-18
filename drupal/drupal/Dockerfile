@@ -174,7 +174,6 @@ RUN cd modules/contrib/migrate_source_xls && \
 
 # Install layout modules
 RUN composer require \
-  drupal/ds \
   drupal/page_manager \
   drupal/panels \
   drupal/panelizer
@@ -225,6 +224,11 @@ RUN /etc/init.d/mysql start && \
     #relaxed \
     restui
     #simple_oauth
+
+# Configuration management
+RUN composer require config_rewrite && \
+  /etc/init.d/mysql restart && \
+  vendor/bin/drupal moi -y config_rewrite
 
 # Install data modeling modules
 #RUN composer require \
