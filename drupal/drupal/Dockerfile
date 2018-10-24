@@ -227,7 +227,7 @@ RUN /etc/init.d/mysql start && \
     #simple_oauth
 
 # Configuration management
-RUN composer require config_rewrite && \
+RUN composer require drupal/config_rewrite && \
   /etc/init.d/mysql restart && \
   vendor/bin/drupal moi -y config_rewrite
 
