@@ -48,6 +48,12 @@ RUN wget https://www.drupal.org/files/issues/2940015-block-contextual-link-2.pat
   patch -p1 < 2940015-block-contextual-link-2.patch && \
   rm 2940015-block-contextual-link-2.patch
 
+# Patch: TypeError: Argument 1 passed to _editor_get_file_uuids_by_field() must implement interface Drupal\\Core\\Entity\\EntityInterface
+# https://www.drupal.org/project/drupal/issues/2974156
+RUN wget https://www.drupal.org/files/issues/2018-11-08/2974156-editor-typeerror-9.patch && \
+  patch -p1 < 2974156-editor-typeerror-9.patch && \
+  rm 2974156-editor-typeerror-9.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
