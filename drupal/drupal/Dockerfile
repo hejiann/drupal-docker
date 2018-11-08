@@ -42,12 +42,6 @@ RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
   patch -p1 < 2863986-2-49.patch && \
   rm 2863986-2-49.patch
 
-# Patch: Allow blocks to be added to entity displays in Field UI
-# https://www.drupal.org/project/drupal/issues/2878685
-#RUN wget https://www.drupal.org/files/issues/2878685-block-field_ui-36.patch && \
-#  patch -p1 < 2878685-block-field_ui-36.patch && \
-#  rm 2878685-block-field_ui-36.patch
-
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
 RUN wget https://www.drupal.org/files/issues/2940015-block-contextual-link-2.patch && \
