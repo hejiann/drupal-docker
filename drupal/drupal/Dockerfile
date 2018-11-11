@@ -247,13 +247,11 @@ RUN composer require drupal/config_rewrite && \
 
 # Install memcache modules
 RUN composer require \
-  drupal/memcache \
-  drupal/memcache_storage
+  drupal/memcache
 # Enable memcache modules
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
-    memcache \
-    memcache_storage
+    memcache
 COPY settings.local.php sites/default/settings.local.php
 RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> sites/default/settings.php
 
