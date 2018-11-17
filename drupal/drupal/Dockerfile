@@ -18,12 +18,6 @@ WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
 RUN composer install
 
-# Patch: Allow Tours to be taken by users that cannot access the Toolbar
-# https://www.drupal.org/project/drupal/issues/2069073
-#RUN wget https://www.drupal.org/files/issues/2069073-38.patch && \
-#  patch -p1 < 2069073-38.patch && \
-#  rm 2069073-38.patch
-
 # Patch: View output is not used for entityreference options
 # https://www.drupal.org/node/2174633
 #RUN wget https://www.drupal.org/files/issues/2174633-143-entity-reference.patch && \
@@ -142,8 +136,6 @@ RUN /etc/init.d/mysql start && \
 
 RUN composer require drupal/console
 
-# Issue: "side:mode prod" cause 'Unable to parse at line 130 (near "{}")' issue on most recent drupal 8.5.x
-# https://github.com/hechoendrupal/drupal-console/issues/3749
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal site:mode prod
 

@@ -27,8 +27,8 @@ RUN a2enmod rewrite && \
   a2ensite default-ssl.conf
 
 # Setup PHP
-RUN sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/memory_limit = 128M/memory_limit = 256M/' /etc/php/7.0/cli/php.ini && \
+RUN sed -i 's/memory_limit = 128M/memory_limit = 512M/' /etc/php/7.0/apache2/php.ini && \
+  sed -i 's/memory_limit = 128M/memory_limit = 512M/' /etc/php/7.0/cli/php.ini && \
   sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/apache2/php.ini && \
   sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/cli/php.ini && \
   sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php/7.0/apache2/php.ini && \
