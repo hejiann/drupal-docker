@@ -145,8 +145,9 @@ RUN composer require \
   drupal/default_content \
   #drupal/migrate_plus \
   drupal/migrate_source_csv \
-  drupal/migrate_source_xls
-  #drupal/migrate_tools
+  drupal/migrate_source_xls \
+  #drupal/migrate_tools \
+  drupal/xls_serialization
 # Install recent migrate_tools
 RUN git clone git://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
 # Install recent migrate_plus module
