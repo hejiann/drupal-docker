@@ -48,7 +48,8 @@ RUN apt-get install -y \
   php-gd \
   php-mbstring \
   php-mysql \
-  php-xml
+  php-xml \
+  php-zip
 
 # Setup apcu
 RUN echo 'apc.shm_size=64M' >> /etc/php/7.0/mods-available/apcu.ini
