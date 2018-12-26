@@ -32,9 +32,9 @@ RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
 
 # Patch: Allow updating modules with new service dependencies
 # https://www.drupal.org/project/drupal/issues/2863986
-RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
-  patch -p1 < 2863986-2-49.patch && \
-  rm 2863986-2-49.patch
+#RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
+#  patch -p1 < 2863986-2-49.patch && \
+#  rm 2863986-2-49.patch
 
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
