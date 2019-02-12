@@ -1,10 +1,11 @@
 [mysqld]
+join_buffer_size = 8M
+
 slow_query_log = 1
 long_query_time = 1
-log_queries_not_using_indexes = 1
+#log_queries_not_using_indexes = 1
 
 query_cache_size = 32M
-join_buffer_size = 4M
 innodb_buffer_pool_size = 1G
 
 max_allowed_packet = 64M

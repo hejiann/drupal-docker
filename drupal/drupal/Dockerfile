@@ -211,7 +211,7 @@ RUN composer require webonyx/graphql-php && \
 RUN /etc/init.d/mysql start && \
   vendor/bin/drupal moi -y \
     basic_auth \
-    graphql \
+    graphql_core \
     jsonapi \
     # Circular reference detected for service "multiversion.manager"
     # https://www.drupal.org/project/multiversion/issues/2905566
