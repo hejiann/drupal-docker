@@ -99,11 +99,11 @@ RUN cd modules/contrib/entity_print && \
   rm entity_print-dompdf-2969184.patch
 
 # Install latest eva
-RUN git clone git://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/eva
+RUN git clone https://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/eva
 
 # Install field_widget_class
 #RUN composer require drupal/field_widget_class
-RUN git clone git://git.drupal.org/project/field_widget_class.git -b 8.x-1.x /var/www/html/modules/field_widget_class
+RUN git clone https://git.drupal.org/project/field_widget_class.git -b 8.x-1.x /var/www/html/modules/field_widget_class
 # Patch: No hook alter to override Field Widget wrappers created by WidgetBase::form
 RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
   patch -p1 < 2872162-field-widget-hook-3.patch && \
@@ -150,9 +150,9 @@ RUN composer require \
   #drupal/migrate_tools \
   drupal/xls_serialization
 # Install recent migrate_tools
-RUN git clone git://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
+RUN git clone https://git.drupal.org/project/migrate_tools.git /var/www/html/modules/migrate_tools
 # Install recent migrate_plus module
-RUN git clone git://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
+RUN git clone https://git.drupal.org/project/migrate_plus.git /var/www/html/modules/migrate_plus
 # PATCH: EntityGenerate does not process the values correctly
 # https://www.drupal.org/node/2975266
 RUN cd modules/migrate_plus && \
