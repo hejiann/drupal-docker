@@ -5,4 +5,4 @@ This docker contains full Drupal environment, including Apache, MySQL, PHP, Drup
 
 The basic pattern for starting a drupal instance is:
 
-$ docker run --name some-drupal -d drupal
+$ docker run --name some-drupal -d jianhe/drupal
