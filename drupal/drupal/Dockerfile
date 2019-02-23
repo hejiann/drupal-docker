@@ -1,4 +1,4 @@
-FROM 114.215.42.138:5000/php
+FROM jianhe/php
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install system packages

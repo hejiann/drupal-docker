@@ -1,5 +1,5 @@
 php:
-  image: 114.215.42.138:5000/php
+  image: jianhe/php
   container_name: php
   ports:
     - 8080:6081

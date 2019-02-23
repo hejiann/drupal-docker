@@ -1,9 +1,9 @@
 #!/bin/bash
 
-docker pull 114.215.42.138:5000/php
+docker pull hianhe/php
 
 docker rm -f php
-docker run -d --name php 114.215.42.138:5000/php
+docker run -d --name php jianhe/php
 if [ -d ./web.old ]; then
   rm -rf ./web.old
 fi
