@@ -7,11 +7,13 @@ vendor/bin/drush site:install -y --account-pass=admin --db-url=mysql://root:@loc
 vendor/bin/drupal moi -y \
   basic_auth \
   graphql_core \
-  jsonapi \
-  # Circular reference detected for service "multiversion.manager"
+  restui
+  # jsonapi issue: Uncaught TypeError: Argument 2 passed to Drupal\jsonapi\Routing\Routes::Drupal\jsonapi\Routing\{closure}() must be an instance of Drupal\jsonapi\ResourceType\ResourceType, null given in
+  # https://www.drupal.org/project/jsonapi/issues/3034592
+  #jsonapi \
+  # relaxed issue: Circular reference detected for service "multiversion.manager"
   # https://www.drupal.org/project/multiversion/issues/2905566
   #relaxed \
-  restui
   #simple_oauth
 
 # Configuration management
