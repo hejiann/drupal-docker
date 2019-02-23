@@ -1,4 +1,4 @@
-FROM jianhe/debian
+FROM 114.215.42.138:5000/php
 MAINTAINER Jian He <hejian.he@gmail.com>
 
 # Install system packages
@@ -8,7 +8,7 @@ RUN apt-get install -y \
   wget
 
 # Mysql server config
-COPY 60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
+COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
@@ -49,12 +49,19 @@ RUN wget https://www.drupal.org/files/issues/2018-11-08/2974156-editor-typeerror
   patch -p1 < 2974156-editor-typeerror-9.patch && \
   rm 2974156-editor-typeerror-9.patch
 
+# layout bulider patch: Sections should have third party settings
+# https://www.drupal.org/project/drupal/issues/2942661
+# https://www.drupal.org/project/drupal/issues/3015152
+RUN wget https://www.drupal.org/files/issues/2019-01-07/2942661-47.patch && \
+  patch -p1 < 2942661-47.patch && \
+  rm 2942661-47.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
   drupal/address \
   drupal/ajax_links_api \
-  drupal/block_class \
+  drupal/block_style_plugins:dev-2.x \
   drupal/conditional_fields \
   drupal/custom_formatters \
   drupal/facets \
@@ -132,13 +139,7 @@ RUN mkdir -p /var/www/private && \
   chown -R www-data:www-data /var/www/private && \
   echo "\$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
 
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drush si -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
-
 RUN composer require drupal/console
-
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal site:mode prod
 
 # Install migrate modules
 RUN composer require \
@@ -208,59 +209,21 @@ RUN composer require \
 RUN composer require webonyx/graphql-php && \
   git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/graphql
 
-# Enable api-first modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    basic_auth \
-    graphql_core \
-    jsonapi \
-    # Circular reference detected for service "multiversion.manager"
-    # https://www.drupal.org/project/multiversion/issues/2905566
-    #relaxed \
-    restui
-    #simple_oauth
-
 # Configuration management
-RUN composer require drupal/config_rewrite && \
-  /etc/init.d/mysql restart && \
-  vendor/bin/drupal moi -y config_rewrite
-
-# Install data modeling modules
-#RUN composer require \
-#  drupal/eck
-# Enable data modeling modules
-#RUN /etc/init.d/mysql start && \
-#  vendor/bin/drupal moi -y \
-#    eck
-
-# eck issue: Tests are failed
-#RUN cd modules/contrib/eck && \
-#  wget https://www.drupal.org/files/issues/eck-tests_failed_D8.6-2937133-2-D8.patch && \
-#  patch -p1 < eck-tests_failed_D8.6-2937133-2-D8.patch && \
-#  rm eck-tests_failed_D8.6-2937133-2-D8.patch
+RUN composer require drupal/config_rewrite
 
 # Install memcache modules
 RUN composer require \
   drupal/memcache
-# Enable memcache modules
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    memcache
-COPY settings.local.php sites/default/settings.local.php
-RUN echo "include \$app_root . '/' . \$site_path . '/settings.local.php';" >> sites/default/settings.php
-
-# Enable modlues
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    r4032login
+COPY files/settings.memcache.php sites/default/settings.memcache.php
 
 # Install varnish_purge
 RUN composer require \
   drupal/purge \
   drupal/varnish_purge
-RUN /etc/init.d/mysql start && \
-  vendor/bin/drupal moi -y \
-    varnish_purger
+
+COPY files/install-drupal.sh install-drupal.sh
+RUN chmod +x install-drupal.sh
 
 # Finish
 EXPOSE 80 3306 22 443

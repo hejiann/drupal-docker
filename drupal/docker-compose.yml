@@ -1,5 +1,5 @@
 drupal:
-  image: jianhe/drupal
+  image: 114.215.42.138:5000/drupal
   container_name: drupal
   ports:
     - 8081:6081

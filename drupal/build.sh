@@ -1,9 +1,9 @@
 #!/bin/sh
 
-docker pull jianhe/drupal
+docker pull 114.215.42.138:5000/drupal
 
 docker rm -f drupal
-docker run -d --name drupal jianhe/drupal
+docker run -d --name drupal 114.215.42.138:5000/drupal
 if [ -d ./web.old ]; then
   sudo rm -rf ./web.old
 fi
