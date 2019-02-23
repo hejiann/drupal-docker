@@ -3,6 +3,12 @@
 rm sites/default/settings.php
 vendor/bin/drush site:install -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
+# Uninstall modules
+vendor/bin/drush pmu -y \
+  contact \
+  dblog \
+  toolbar
+
 # Enable api-first modules
 vendor/bin/drupal moi -y \
   basic_auth \
@@ -15,9 +21,6 @@ vendor/bin/drupal moi -y \
   # https://www.drupal.org/project/multiversion/issues/2905566
   #relaxed \
   #simple_oauth
-
-# Configuration management
-vendor/bin/drupal moi -y config_rewrite
 
 # Enable memcache modules
 vendor/bin/drupal moi -y \
