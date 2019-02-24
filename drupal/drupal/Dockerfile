@@ -168,11 +168,6 @@ RUN cd modules/contrib/migrate_source_xls && \
   rm 2954477-constants-2.patch
 
 # Install layout modules
-# TODO: Remove ctools:3.0 install after these bugs fixed:
-# https://www.drupal.org/project/panels/issues/3031778
-# https://www.drupal.org/project/page_manager/issues/3033057
-RUN composer require \
-  drupal/ctools:3.0
 RUN composer require \
   drupal/page_manager \
   drupal/panels \
@@ -191,6 +186,20 @@ RUN cd modules/contrib/panels && \
   wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
+
+# Patch: Change panels store
+# https://www.drupal.org/project/panels/issues/3031778
+RUN cd modules/contrib/panels && \
+  wget https://www.drupal.org/files/issues/2019-02-21/panels_tempstore-updated-3031778-37.patch && \
+  patch -p1 < panels_tempstore-updated-3031778-37.patch && \
+  rm panels_tempstore-updated-3031778-37.patch
+
+# Patch: Page Manager currently not working with CTools 3.1
+# https://www.drupal.org/project/page_manager/issues/3033057
+RUN cd modules/contrib/page_manager && \
+  wget https://www.drupal.org/files/issues/2019-02-17/page_manager-user_tempstore_fix-3033057-3.patch && \
+  patch -p1 < page_manager-user_tempstore_fix-3033057-3.patch && \
+  rm page_manager-user_tempstore_fix-3033057-3.patch
 
 # Install api-first modules
 RUN composer require \
