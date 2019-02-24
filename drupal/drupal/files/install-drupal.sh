@@ -3,6 +3,8 @@
 rm sites/default/settings.php
 vendor/bin/drush site:install -y --account-pass=admin --db-url=mysql://root:@localhost/drupal
 
+echo "\$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
+
 # Uninstall modules
 vendor/bin/drush pmu -y \
   contact \

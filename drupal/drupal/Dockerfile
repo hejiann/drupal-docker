@@ -135,9 +135,9 @@ RUN mkdir -p /var/www/html/sites/default/files && \
   chmod a+rw /var/www/html/sites/default/services.yml && \
   chown -R www-data:www-data /var/www/html/
 
+# install-drupal.sh will setup /var/www/private as file_private_path, create it first
 RUN mkdir -p /var/www/private && \
-  chown -R www-data:www-data /var/www/private && \
-  echo "\$settings['file_private_path'] = '/var/www/private';" >> /var/www/html/sites/default/settings.php
+  chown -R www-data:www-data /var/www/private
 
 RUN composer require drupal/console
 
