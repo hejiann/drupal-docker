@@ -168,6 +168,11 @@ RUN cd modules/contrib/migrate_source_xls && \
   rm 2954477-constants-2.patch
 
 # Install layout modules
+# TODO: Remove ctools:3.0 install after these bugs fixed:
+# https://www.drupal.org/project/panels/issues/3031778
+# https://www.drupal.org/project/page_manager/issues/3033057
+RUN composer require \
+  drupal/ctools:3.0
 RUN composer require \
   drupal/page_manager \
   drupal/panels \
@@ -179,14 +184,6 @@ RUN cd modules/contrib/page_manager && \
   wget https://www.drupal.org/files/issues/page_manager-page_variants_selection-2868216-7.patch && \
   patch -p1 < page_manager-page_variants_selection-2868216-7.patch && \
   rm page_manager-page_variants_selection-2868216-7.patch
-
-# 8.5.x
-# Service 'page_manager.variant_route_filter' for consumer 'router.no_access_checks' does not implement Drupal\Core\Routing\FilterInterface
-# https://www.drupal.org/node/2918564
-#RUN cd modules/contrib/page_manager && \
-#  wget https://www.drupal.org/files/issues/page_manager_variant_route_filter-2918564.patch && \
-#  patch -p1 < page_manager_variant_route_filter-2918564.patch && \
-#  rm page_manager_variant_route_filter-2918564.patch
 
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
