@@ -1,10 +1,6 @@
 # drupal-docker
-Docker for Drupal development environment.
 
-This docker contains full Drupal environment, including Apache, MySQL, PHP, Drupal and some must include third party tools. And included a install-drupal.sh script for quick install.
-
-The basic pattern for starting a drupal instance is:
+Drupal docker: apache+mysql+php+drupal and must have modules and patches.
 ```
-$ cd drupal
-$ docker-compose up -d
+$ docker run --name some-drupal -d jianhe/drupal
 ```

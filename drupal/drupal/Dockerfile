@@ -55,6 +55,12 @@ RUN wget https://www.drupal.org/files/issues/2019-01-07/2942661-47.patch && \
   patch -p1 < 2942661-47.patch && \
   rm 2942661-47.patch
 
+# PHP 7.0 got error: Undefined class constant 'SOURCE_IDS_HASH'
+# https://www.drupal.org/project/drupal/issues/3034599
+RUN wget https://www.drupal.org/files/issues/2019-02-25/3034599-php7.0-4.patch && \
+  patch -p1 < 3034599-php7.0-4.patch && \
+  rm 3034599-php7.0-4.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
