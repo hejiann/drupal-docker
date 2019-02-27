@@ -37,3 +37,7 @@ vendor/bin/drupal moi -y \
   r4032login
 
 vendor/bin/drupal site:mode prod
+
+chown www-data:www-data /var/www/html -R
+chown www-data:www-data /var/www/private -R
+
