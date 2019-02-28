@@ -56,7 +56,7 @@ RUN wget https://www.drupal.org/files/issues/2019-02-26/3015152-tps-5.patch && \
 
 # PHP 7.0 got error: Undefined class constant 'SOURCE_IDS_HASH'
 # https://www.drupal.org/project/drupal/issues/3034599
-RUN wget https://www.drupal.org/files/issues/2019-02-25/3034599-php70-6.patch && \
+RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch && \
   patch -p1 < 3034599-php70-6.patch && \
   rm 3034599-php70-6.patch
 
