@@ -1,5 +1,4 @@
 FROM jianhe/php
-ENV DRUPAL_BUILD_DATE 20190227
 
 # Install system packages
 RUN apt-get install -y \
@@ -12,6 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
+ENV DRUPAL_VERSION 20190228
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
