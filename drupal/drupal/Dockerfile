@@ -24,6 +24,15 @@ RUN composer install
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# datetime_range: Allow end date to be optional
+# https://www.drupal.org/project/drupal/issues/2794481
+RUN wget https://www.drupal.org/files/issues/2018-05-14/2794481-60.patch && \
+  patch -p1 < 2794481-60.patch && \
+  rm 2794481-60.patch
+COPY files/datetimerange.patch datetimerange.patch
+RUN patch -p1 < datetimerange.patch && \
+  rm datetimerange.patch
+
 # Patch: Can't create comments when comment is a base field
 # https://www.drupal.org/project/drupal/issues/2855068
 RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
