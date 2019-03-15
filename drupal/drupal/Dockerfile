@@ -33,6 +33,12 @@ COPY files/datetimerange.patch datetimerange.patch
 RUN patch -p1 < datetimerange.patch && \
   rm datetimerange.patch
 
+# EntityReferenceAutocompleteWidget getAutoCreateBundle unnecessarily requires target_bundles setting
+# https://www.drupal.org/project/drupal/issues/2821352
+RUN wget https://www.drupal.org/files/issues/2019-01-13/drupal_bundleless_autocreate-2821352-9.patch && \
+  patch -p1 < drupal_bundleless_autocreate-2821352-9.patch && \
+  rm drupal_bundleless_autocreate-2821352-9.patch
+
 # Patch: Can't create comments when comment is a base field
 # https://www.drupal.org/project/drupal/issues/2855068
 RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \

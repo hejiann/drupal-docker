@@ -29,6 +29,9 @@ vendor/bin/drupal moi -y \
   memcache
 echo "include \$app_root . '/' . \$site_path . '/settings.memcache.php';" >> sites/default/settings.php
 
+# drupal console issue: https://github.com/hechoendrupal/drupal-console/issues/4005
+vendor/bin/drush cr
+
 # Enable varnish_purge
 vendor/bin/drupal moi -y \
   varnish_purger
