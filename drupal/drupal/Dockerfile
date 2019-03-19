@@ -83,7 +83,7 @@ RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch &&
 
 # locale: Could not update translation for an imported config
 # https://www.drupal.org/project/drupal/issues/3040979
-RUN wget -p1 < https://www.drupal.org/files/issues/2019-03-18/3040979-updateConfigTranslations-2.patch && \
+RUN wget https://www.drupal.org/files/issues/2019-03-18/3040979-updateConfigTranslations-2.patch && \
   patch -p1 < 3040979-updateConfigTranslations-2.patch && \
   rm 3040979-updateConfigTranslations-2.patch
 
