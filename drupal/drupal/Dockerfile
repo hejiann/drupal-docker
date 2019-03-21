@@ -69,6 +69,9 @@ RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch &&
   patch -p1 < 3034599-php70-6.patch && \
   rm 3034599-php70-6.patch
 
+# REST views: field alias should support unicode characters
+# https://www.drupal.org/project/drupal/issues/3038610
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
@@ -89,7 +92,6 @@ RUN composer require \
   drupal/search_api_solr \
   drupal/token \
   drupal/token_filter \
-  drupal/views_slideshow
 
 # If PHP filter is empty, module should return TRUE and not execute code
 # https://www.drupal.org/project/php/issues/2678430
@@ -218,7 +220,6 @@ RUN cd modules/contrib/page_manager && \
 RUN composer require \
   #drupal/graphql \
   drupal/jsonapi \
-  drupal/relaxed \
   drupal/restui
   # [ERROR] Incomplete or missing schema for simple_oauth.oauth2_token.bundle.
   #drupal/simple_oauth
