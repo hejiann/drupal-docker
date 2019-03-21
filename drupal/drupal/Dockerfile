@@ -114,7 +114,7 @@ RUN composer require \
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
 # https://www.drupal.org/project/ajax_links_api/issues/3015840
-RUN co modules/contrib/ajax_links_api && \
+RUN cd modules/contrib/ajax_links_api && \
   wget https://www.drupal.org/files/issues/2019-03-21/3015840-schema-2.patch && \
   patch -p1 < 3015840-schema-2.patch && \
   rm 3015840-schema-2.patch
