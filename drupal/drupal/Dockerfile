@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190306
+ENV DRUPAL_VERSION 20190321
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -244,7 +244,6 @@ RUN cd modules/contrib/page_manager && \
 # Install api-first modules
 RUN composer require \
   #drupal/graphql \
-  drupal/jsonapi \
   drupal/restui
   # [ERROR] Incomplete or missing schema for simple_oauth.oauth2_token.bundle.
   #drupal/simple_oauth
