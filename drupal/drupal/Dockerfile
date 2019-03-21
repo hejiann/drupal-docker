@@ -109,7 +109,7 @@ RUN composer require \
   drupal/rules \
   drupal/search_api_solr \
   drupal/token \
-  drupal/token_filter \
+  drupal/token_filter
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
 # https://www.drupal.org/project/ajax_links_api/issues/3015840
