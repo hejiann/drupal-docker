@@ -63,7 +63,7 @@ RUN wget https://www.drupal.org/files/issues/2018-11-08/2974156-editor-typeerror
   patch -p1 < 2974156-editor-typeerror-9.patch && \
   rm 2974156-editor-typeerror-9.patch
 
-# Support third party settings for components within a section
+# layout_bulider: Support third party settings for components within a section
 # https://www.drupal.org/project/drupal/issues/3015152
 RUN wget https://www.drupal.org/files/issues/2019-02-26/3015152-tps-5.patch && \
   patch -p1 < 3015152-tps-5.patch && \
@@ -80,6 +80,9 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
 RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch && \
   patch -p1 < 3034599-php70-6.patch && \
   rm 3034599-php70-6.patch
+
+# REST views: field alias should support human readable name
+# https://www.drupal.org/project/drupal/issues/3038610
 
 # locale: Could not update translation for an imported config
 # https://www.drupal.org/project/drupal/issues/3040979
@@ -108,6 +111,13 @@ RUN composer require \
   drupal/token \
   drupal/token_filter \
   drupal/views_slideshow
+
+# ajax_links_api: No schema for ajax_links_api.admin_settings
+# https://www.drupal.org/project/ajax_links_api/issues/3015840
+RUN co modules/contrib/ajax_links_api && \
+  wget https://www.drupal.org/files/issues/2019-03-21/3015840-schema-2.patch && \
+  patch -p1 < 3015840-schema-2.patch && \
+  rm 3015840-schema-2.patch
 
 # If PHP filter is empty, module should return TRUE and not execute code
 # https://www.drupal.org/project/php/issues/2678430
