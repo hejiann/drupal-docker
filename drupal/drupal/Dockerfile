@@ -24,6 +24,12 @@ RUN composer install
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# StringFormatter generates links in wrong language when linking to entity
+# https://www.drupal.org/project/drupal/issues/2648288
+RUN wget https://www.drupal.org/files/issues/2019-03-23/2648288-string-formatter-30.patch && \
+  patch -p1 < 2648288-string-formatter-30.patch && \
+  rm 2648288-string-formatter-30.patch
+
 # datetime_range: Allow end date to be optional
 # https://www.drupal.org/project/drupal/issues/2794481
 RUN wget https://www.drupal.org/files/issues/2018-05-14/2794481-60.patch && \
@@ -35,9 +41,9 @@ RUN patch -p1 < datetimerange.patch && \
 
 # EntityReferenceAutocompleteWidget getAutoCreateBundle unnecessarily requires target_bundles setting
 # https://www.drupal.org/project/drupal/issues/2821352
-RUN wget https://www.drupal.org/files/issues/2019-01-13/drupal_bundleless_autocreate-2821352-9.patch && \
-  patch -p1 < drupal_bundleless_autocreate-2821352-9.patch && \
-  rm drupal_bundleless_autocreate-2821352-9.patch
+RUN wget https://www.drupal.org/files/issues/2019-03-24/2821352-entity-reference-auto-create-12.patch && \
+  patch -p1 < 2821352-entity-reference-auto-create-12.patch && \
+  rm 2821352-entity-reference-auto-create-12.patch
 
 # Patch: Can't create comments when comment is a base field
 # https://www.drupal.org/project/drupal/issues/2855068
@@ -53,9 +59,9 @@ RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
 
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
-RUN wget https://www.drupal.org/files/issues/2940015-block-contextual-link-2.patch && \
-  patch -p1 < 2940015-block-contextual-link-2.patch && \
-  rm 2940015-block-contextual-link-2.patch
+RUN wget https://www.drupal.org/files/issues/2019-03-24/2940015-seven-theme-10.patch && \
+  patch -p1 < 2940015-seven-theme-10.patch && \
+  rm 2940015-seven-theme-10.patch
 
 # Patch: TypeError: Argument 1 passed to _editor_get_file_uuids_by_field() must implement interface Drupal\\Core\\Entity\\EntityInterface
 # https://www.drupal.org/project/drupal/issues/2974156
@@ -89,6 +95,12 @@ RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch &&
 RUN wget https://www.drupal.org/files/issues/2019-03-18/3040979-updateConfigTranslations-2.patch && \
   patch -p1 < 3040979-updateConfigTranslations-2.patch && \
   rm 3040979-updateConfigTranslations-2.patch
+
+# EntityReferenceLabelFormatter generates links in wrong language
+# https://www.drupal.org/project/drupal/issues/3042392
+RUN wget https://www.drupal.org/files/issues/2019-03-22/3042392-entity-reference-label-wrong-language-2.patch && \
+  patch -p1 < 3042392-entity-reference-label-wrong-language-2.patch && \
+  rm 3042392-entity-reference-label-wrong-language-2.patch
 
 # Install Drupal modules
 RUN composer require \
@@ -152,6 +164,7 @@ RUN git clone https://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/mo
 #RUN composer require drupal/field_widget_class
 RUN git clone https://git.drupal.org/project/field_widget_class.git -b 8.x-1.x /var/www/html/modules/contrib/field_widget_class
 # Patch: No hook alter to override Field Widget wrappers created by WidgetBase::form
+# https://www.drupal.org/node/2872162
 RUN wget https://www.drupal.org/files/issues/2872162-field-widget-hook-3.patch && \
   patch -p1 < 2872162-field-widget-hook-3.patch && \
   rm 2872162-field-widget-hook-3.patch
@@ -194,18 +207,27 @@ RUN composer require \
 RUN git clone https://git.drupal.org/project/migrate_tools.git /var/www/html/modules/contrib/migrate_tools
 # Install recent migrate_plus module
 RUN git clone https://git.drupal.org/project/migrate_plus.git /var/www/html/modules/contrib/migrate_plus
+
 # PATCH: EntityGenerate does not process the values correctly
 # https://www.drupal.org/node/2975266
 RUN cd modules/contrib/migrate_plus && \
   wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
   patch -p1 < 2975266-values-2.patch && \
   rm 2975266-values-2.patch
-# PATCH: migrate_source_xls does not support constants defined in migration configuration
+
+# migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
+# https://www.drupal.org/project/migrate_source_xls/issues/2954462
+RUN cd modules/contrib/migrate_source_xls && \
+  weget https://www.drupal.org/files/issues/2019-03-23/2954462-sheet-name-3.patch && \
+  patch -p1 < 2954462-sheet-name-3.patch && \
+  rm 2954462-sheet-name-3.patch
+
+# migrate_source_xls: Needs support constants defined in source configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954477
 RUN cd modules/contrib/migrate_source_xls && \
-  wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-2.patch && \
-  patch -p1 < 2954477-constants-2.patch && \
-  rm 2954477-constants-2.patch
+  wget https://www.drupal.org/files/issues/2018-03-20/2954477-constants-3.patch && \
+  patch -p1 < 2954477-constants-3.patch && \
+  rm 2954477-constants-3.patch
 
 # Install layout modules
 RUN composer require \
@@ -220,6 +242,13 @@ RUN cd modules/contrib/page_manager && \
   patch -p1 < page_manager-page_variants_selection-2868216-7.patch && \
   rm page_manager-page_variants_selection-2868216-7.patch
 
+# Patch: Page Manager currently not working with CTools 3.1
+# https://www.drupal.org/project/page_manager/issues/3033057
+RUN cd modules/contrib/page_manager && \
+  wget https://www.drupal.org/files/issues/2019-02-17/page_manager-user_tempstore_fix-3033057-3.patch && \
+  patch -p1 < page_manager-user_tempstore_fix-3033057-3.patch && \
+  rm page_manager-user_tempstore_fix-3033057-3.patch
+
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
 RUN cd modules/contrib/panels && \
@@ -233,13 +262,6 @@ RUN cd modules/contrib/panels && \
   wget https://www.drupal.org/files/issues/2019-02-21/panels_tempstore-updated-3031778-37.patch && \
   patch -p1 < panels_tempstore-updated-3031778-37.patch && \
   rm panels_tempstore-updated-3031778-37.patch
-
-# Patch: Page Manager currently not working with CTools 3.1
-# https://www.drupal.org/project/page_manager/issues/3033057
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/2019-02-17/page_manager-user_tempstore_fix-3033057-3.patch && \
-  patch -p1 < page_manager-user_tempstore_fix-3033057-3.patch && \
-  rm page_manager-user_tempstore_fix-3033057-3.patch
 
 # Install api-first modules
 RUN composer require \
