@@ -18,6 +18,9 @@ WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
 RUN composer install
 
+# Manage localization on module install (import locales first, default language)
+# https://www.drupal.org/project/drupal/issues/571380
+
 # Patch: View output is not used for entityreference options
 # https://www.drupal.org/node/2174633
 #RUN wget https://www.drupal.org/files/issues/2174633-143-entity-reference.patch && \
@@ -29,6 +32,12 @@ RUN composer install
 RUN wget https://www.drupal.org/files/issues/2019-03-23/2648288-string-formatter-30.patch && \
   patch -p1 < 2648288-string-formatter-30.patch && \
   rm 2648288-string-formatter-30.patch
+
+# Add a language will never import the translation for modules
+# https://www.drupal.org/project/drupal/issues/2654322
+RUN wget https://www.drupal.org/files/issues/2654322-translation-import-2.patch && \
+  patch -p1 < 2654322-translation-import-2.patch && \
+  rm 2654322-translation-import-2.patch
 
 # datetime_range: Allow end date to be optional
 # https://www.drupal.org/project/drupal/issues/2794481
