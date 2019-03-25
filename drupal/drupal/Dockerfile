@@ -113,9 +113,9 @@ RUN wget https://www.drupal.org/files/issues/2019-03-22/3042392-entity-reference
 
 # views: The EntityOperations field plugin generate links in wrong language
 # https://www.drupal.org/project/drupal/issues/3043057
-RUN wget https://www.drupal.org/files/issues/2019-03-25/3043057-views-EntityOperations-language-2.patch && \
-  patch -p1 < 3043057-views-EntityOperations-language-2.patch && \
-  rm 3043057-views-EntityOperations-language-2.patch
+RUN wget https://www.drupal.org/files/issues/2019-03-25/3043057-views-EntityOperations-language-5.patch && \
+  patch -p1 < 3043057-views-EntityOperations-language-5.patch && \
+  rm 3043057-views-EntityOperations-language-5.patch
 
 # Install Drupal modules
 RUN composer require \
