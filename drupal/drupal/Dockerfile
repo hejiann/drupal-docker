@@ -218,7 +218,7 @@ RUN cd modules/contrib/migrate_plus && \
 # migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954462
 RUN cd modules/contrib/migrate_source_xls && \
-  weget https://www.drupal.org/files/issues/2019-03-23/2954462-sheet-name-3.patch && \
+  wget https://www.drupal.org/files/issues/2019-03-23/2954462-sheet-name-3.patch && \
   patch -p1 < 2954462-sheet-name-3.patch && \
   rm 2954462-sheet-name-3.patch
 
