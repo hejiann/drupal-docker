@@ -102,6 +102,12 @@ RUN wget https://www.drupal.org/files/issues/2019-03-22/3042392-entity-reference
   patch -p1 < 3042392-entity-reference-label-wrong-language-2.patch && \
   rm 3042392-entity-reference-label-wrong-language-2.patch
 
+# views: The EntityOperations field plugin generate links in wrong language
+# https://www.drupal.org/project/drupal/issues/3043057
+RUN wget https://www.drupal.org/files/issues/2019-03-25/3043057-views-EntityOperations-language-2.patch && \
+  patch -p1 < 3043057-views-EntityOperations-language-2.patch && \
+  rm 3043057-views-EntityOperations-language-2.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
