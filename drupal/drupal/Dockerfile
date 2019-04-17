@@ -90,6 +90,12 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
   patch -p1 < 3028979.29.patch && \
   rm 3028979.29.patch
 
+# Config entity label and other fields translation doesn't work
+# https://www.drupal.org/project/drupal/issues/3030949
+RUN wget https://www.drupal.org/files/issues/2019-02-17/config-entity-label-translation-3030949-16.patch && \
+  patch -p1 < config-entity-label-translation-3030949-16.patch && \
+	rm config-entity-label-translation-3030949-16.patch
+
 # PHP 7.0 got error: Undefined class constant 'SOURCE_IDS_HASH'
 # https://www.drupal.org/project/drupal/issues/3034599
 RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch && \
