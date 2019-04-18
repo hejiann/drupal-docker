@@ -277,13 +277,6 @@ RUN cd modules/contrib/panels && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
 
-# Patch: Change panels store
-# https://www.drupal.org/project/panels/issues/3031778
-RUN cd modules/contrib/panels && \
-  wget https://www.drupal.org/files/issues/2019-02-21/panels_tempstore-updated-3031778-37.patch && \
-  patch -p1 < panels_tempstore-updated-3031778-37.patch && \
-  rm panels_tempstore-updated-3031778-37.patch
-
 # Install api-first modules
 RUN composer require \
   #drupal/graphql \
