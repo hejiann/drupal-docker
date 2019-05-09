@@ -123,6 +123,12 @@ RUN wget https://www.drupal.org/files/issues/2019-03-25/3043057-views-EntityOper
   patch -p1 < 3043057-views-EntityOperations-language-5.patch && \
   rm 3043057-views-EntityOperations-language-5.patch
 
+# DateTimeComputed tries to compute from an empty value
+# https://www.drupal.org/project/drupal/issues/3052608
+RUN wget https://www.drupal.org/files/issues/2019-05-04/3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch && \
+  patch -p1 < 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch && \
+  rm 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
