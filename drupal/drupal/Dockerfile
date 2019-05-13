@@ -235,13 +235,6 @@ RUN git clone https://git.drupal.org/project/migrate_tools.git /var/www/html/mod
 # Install recent migrate_plus module
 RUN git clone https://git.drupal.org/project/migrate_plus.git /var/www/html/modules/contrib/migrate_plus
 
-# PATCH: EntityGenerate does not process the values correctly
-# https://www.drupal.org/node/2975266
-RUN cd modules/contrib/migrate_plus && \
-  wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
-  patch -p1 < 2975266-values-2.patch && \
-  rm 2975266-values-2.patch
-
 # migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954462
 RUN cd modules/contrib/migrate_source_xls && \
