@@ -225,15 +225,11 @@ RUN composer require drupal/console
 RUN composer require \
   drupal/csv_serialization \
   drupal/default_content \
-  #drupal/migrate_plus \
+  drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_source_xls \
-  #drupal/migrate_tools \
+  drupal/migrate_tools \
   drupal/xls_serialization
-# Install recent migrate_tools
-RUN git clone https://git.drupal.org/project/migrate_tools.git /var/www/html/modules/contrib/migrate_tools
-# Install recent migrate_plus module
-RUN git clone https://git.drupal.org/project/migrate_plus.git /var/www/html/modules/contrib/migrate_plus
 
 # migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954462
