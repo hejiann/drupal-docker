@@ -249,6 +249,13 @@ RUN cd modules/contrib/migrate_source_xls && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
 
+# migrate_source_xls: Let prepareColumns function can be override by subclass
+# https://www.drupal.org/project/migrate_source_xls/issues/3055712
+RUN cd modules/contrib/migrate_source_xls && \
+  wget https://www.drupal.org/files/issues/2019-05-20/3055712-prepareColumns-3.patch && \
+  patch -p1 < 3055712-prepareColumns-3.patch && \
+  rm 3055712-prepareColumns-3.patch
+
 # Install layout modules
 RUN composer require \
   drupal/page_manager \
