@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190513
+ENV DRUPAL_VERSION 20190521
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -95,12 +95,6 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
 RUN wget https://www.drupal.org/files/issues/2019-02-17/config-entity-label-translation-3030949-16.patch && \
   patch -p1 < config-entity-label-translation-3030949-16.patch && \
 	rm config-entity-label-translation-3030949-16.patch
-
-# PHP 7.0 got error: Undefined class constant 'SOURCE_IDS_HASH'
-# https://www.drupal.org/project/drupal/issues/3034599
-RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch && \
-  patch -p1 < 3034599-php70-6.patch && \
-  rm 3034599-php70-6.patch
 
 # REST views: field alias should support human readable name
 # https://www.drupal.org/project/drupal/issues/3038610
