@@ -123,6 +123,12 @@ RUN wget https://www.drupal.org/files/issues/2019-05-04/3052608-2.drupal.DateTim
   patch -p1 < 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch && \
   rm 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch
 
+# Update configuration translations even if the configuration is created programmatically
+# https://www.drupal.org/project/drupal/issues/3058090
+RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configuration-translation-2.patch && \
+  patch -p1 < 3058090-update-configuration-translation-2.patch && \
+  rm 3058090-update-configuration-translation-2.patch
+
 # Install Drupal modules
 RUN composer require \
   drupal/r4032login \
