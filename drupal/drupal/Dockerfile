@@ -225,13 +225,15 @@ RUN composer require drupal/console
 RUN composer require \
   drupal/csv_serialization \
   drupal/default_content \
-  # https://www.drupal.org/node/2975266
-  drupal/migrate_plus:8.x-4.x \
+  #drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_source_xls \
   drupal/migrate_tools \
   drupal/xls_serialization
 
+# EntityGenerate: Provide multiple values will not process correctly.
+# https://www.drupal.org/node/2975266
+RUN git clone -b 8.x-4.x https://git.drupalcode.org/project/migrate_plus.git /var/www/html/modules/contrib/migrate_plus
 
 # migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954462
