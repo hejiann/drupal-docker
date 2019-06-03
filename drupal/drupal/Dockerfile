@@ -256,13 +256,6 @@ RUN composer require \
   drupal/panels \
   drupal/panelizer
 
-# Page variants cannot be selected
-# https://www.drupal.org/project/page_manager/issues/2868216
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/page_manager-page_variants_selection-2868216-7.patch && \
-  patch -p1 < page_manager-page_variants_selection-2868216-7.patch && \
-  rm page_manager-page_variants_selection-2868216-7.patch
-
 # Patch: Page Manager currently not working with CTools 3.1
 # https://www.drupal.org/project/page_manager/issues/3033057
 RUN cd modules/contrib/page_manager && \
