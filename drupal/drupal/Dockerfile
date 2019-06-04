@@ -256,13 +256,6 @@ RUN composer require \
   drupal/panels \
   drupal/panelizer
 
-# Patch: Page Manager currently not working with CTools 3.1
-# https://www.drupal.org/project/page_manager/issues/3033057
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/2019-02-17/page_manager-user_tempstore_fix-3033057-3.patch && \
-  patch -p1 < page_manager-user_tempstore_fix-3033057-3.patch && \
-  rm page_manager-user_tempstore_fix-3033057-3.patch
-
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
 RUN cd modules/contrib/panels && \
