@@ -27,10 +27,10 @@ RUN sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.0/apache2/ph
   sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.0/cli/php.ini && \
   sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/apache2/php.ini && \
   sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/post_max_size = 8M/post_max_size = 16M/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 16M/' /etc/php/7.0/cli/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.0/apache2/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.0/cli/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.0/apache2/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.0/cli/php.ini && \
   sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.0/apache2/php.ini && \
   sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.0/cli/php.ini
 # eva module need always_populate_raw_post_data PHP setting be set to -1
