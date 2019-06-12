@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190321
+ENV DRUPAL_VERSION 20190521
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -96,12 +96,6 @@ RUN wget https://www.drupal.org/files/issues/2019-02-17/config-entity-label-tran
   patch -p1 < config-entity-label-translation-3030949-16.patch && \
 	rm config-entity-label-translation-3030949-16.patch
 
-# PHP 7.0 got error: Undefined class constant 'SOURCE_IDS_HASH'
-# https://www.drupal.org/project/drupal/issues/3034599
-RUN wget https://www.drupal.org/files/issues/2019-02-26/3034599-php70-6.patch && \
-  patch -p1 < 3034599-php70-6.patch && \
-  rm 3034599-php70-6.patch
-
 # REST views: field alias should support human readable name
 # https://www.drupal.org/project/drupal/issues/3038610
 
@@ -122,6 +116,18 @@ RUN wget https://www.drupal.org/files/issues/2019-03-22/3042392-entity-reference
 RUN wget https://www.drupal.org/files/issues/2019-03-25/3043057-views-EntityOperations-language-5.patch && \
   patch -p1 < 3043057-views-EntityOperations-language-5.patch && \
   rm 3043057-views-EntityOperations-language-5.patch
+
+# DateTimeComputed tries to compute from an empty value
+# https://www.drupal.org/project/drupal/issues/3052608
+RUN wget https://www.drupal.org/files/issues/2019-05-04/3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch && \
+  patch -p1 < 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch && \
+  rm 3052608-2.drupal.DateTimeComputed-tries-to-compute-from-an-empty-value.patch
+
+# Update configuration translations even if the configuration is created programmatically
+# https://www.drupal.org/project/drupal/issues/3058090
+RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configuration-translation-2.patch && \
+  patch -p1 < 3058090-update-configuration-translation-2.patch && \
+  rm 3058090-update-configuration-translation-2.patch
 
 # Install Drupal modules
 RUN composer require \
@@ -216,20 +222,17 @@ RUN mkdir -p /var/www/private && \
 RUN composer require drupal/console
 
 # Install migrate modules
+
 RUN composer require \
   drupal/csv_serialization \
   drupal/default_content \
-  #drupal/migrate_plus \
+  drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_source_xls \
-  #drupal/migrate_tools \
+  drupal/migrate_tools \
   drupal/xls_serialization
-# Install recent migrate_tools
-RUN git clone https://git.drupal.org/project/migrate_tools.git /var/www/html/modules/contrib/migrate_tools
-# Install recent migrate_plus module
-RUN git clone https://git.drupal.org/project/migrate_plus.git /var/www/html/modules/contrib/migrate_plus
 
-# PATCH: EntityGenerate does not process the values correctly
+# EntityGenerate: Provide multiple values will not process correctly.
 # https://www.drupal.org/node/2975266
 RUN cd modules/contrib/migrate_plus && \
   wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
@@ -256,33 +259,12 @@ RUN composer require \
   drupal/panels \
   drupal/panelizer
 
-# Page variants cannot be selected
-# https://www.drupal.org/project/page_manager/issues/2868216
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/page_manager-page_variants_selection-2868216-7.patch && \
-  patch -p1 < page_manager-page_variants_selection-2868216-7.patch && \
-  rm page_manager-page_variants_selection-2868216-7.patch
-
-# Patch: Page Manager currently not working with CTools 3.1
-# https://www.drupal.org/project/page_manager/issues/3033057
-RUN cd modules/contrib/page_manager && \
-  wget https://www.drupal.org/files/issues/2019-02-17/page_manager-user_tempstore_fix-3033057-3.patch && \
-  patch -p1 < page_manager-user_tempstore_fix-3033057-3.patch && \
-  rm page_manager-user_tempstore_fix-3033057-3.patch
-
 # Patch: Custom attributes in panels blocks
 # https://www.drupal.org/node/2849867
 RUN cd modules/contrib/panels && \
   wget https://www.drupal.org/files/issues/2849867-custom_attributes_in_panels_blocks-11.patch && \
   patch -p1 < 2849867-custom_attributes_in_panels_blocks-11.patch && \
   rm 2849867-custom_attributes_in_panels_blocks-11.patch
-
-# Patch: Change panels store
-# https://www.drupal.org/project/panels/issues/3031778
-RUN cd modules/contrib/panels && \
-  wget https://www.drupal.org/files/issues/2019-02-21/panels_tempstore-updated-3031778-37.patch && \
-  patch -p1 < panels_tempstore-updated-3031778-37.patch && \
-  rm panels_tempstore-updated-3031778-37.patch
 
 # Install api-first modules
 RUN composer require \
