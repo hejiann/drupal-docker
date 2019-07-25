@@ -137,6 +137,7 @@ RUN composer require \
   drupal/block_style_plugins:dev-2.x \
   drupal/conditional_fields \
   drupal/custom_formatters \
+  drupal/entity_browser \
   drupal/facets \
   drupal/features \
   drupal/field_formatter_class \
@@ -148,7 +149,8 @@ RUN composer require \
   drupal/rules \
   drupal/search_api_solr \
   drupal/token \
-  drupal/token_filter
+  drupal/token_filter \
+  drupal/views_field_formatter
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
 # https://www.drupal.org/project/ajax_links_api/issues/3015840

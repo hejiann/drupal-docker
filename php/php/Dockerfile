@@ -40,6 +40,7 @@ RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data 
 # Install PHP extensions
 RUN apt-get install -y \
   php-apcu \
+  php-bcmath \
   php-curl \
   php-gd \
   php-mbstring \
