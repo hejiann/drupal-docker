@@ -149,7 +149,8 @@ RUN composer require \
   drupal/rules \
   drupal/search_api_solr \
   drupal/token \
-  drupal/token_filter
+  drupal/token_filter \
+  drupal/webform
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
 # https://www.drupal.org/project/ajax_links_api/issues/3015840
@@ -184,9 +185,6 @@ RUN cd modules/contrib/entity_print && \
   wget https://www.drupal.org/files/issues/2018-05-03/entity_print-dompdf-2969184.patch && \
   patch -p1 < entity_print-dompdf-2969184.patch && \
   rm entity_print-dompdf-2969184.patch
-
-# Install latest eva
-RUN git clone https://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/contrib/eva
 
 # Install field_widget_class
 #RUN composer require drupal/field_widget_class
@@ -226,7 +224,6 @@ RUN composer require drupal/console
 
 RUN composer require \
   drupal/csv_serialization \
-  drupal/default_content \
   drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_source_xls \
@@ -278,9 +275,6 @@ RUN composer require \
 # https://github.com/drupal-graphql/graphql/pull/679
 RUN composer require webonyx/graphql-php && \
   git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/contrib/graphql
-
-# Configuration management
-RUN composer require drupal/config_rewrite
 
 # Install memcache modules
 RUN composer require \
