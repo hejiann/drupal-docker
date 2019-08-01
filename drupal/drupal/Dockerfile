@@ -144,10 +144,10 @@ RUN composer require \
   drupal/field_group \
   drupal/inline_entity_form \
   drupal/pinyin \
-  drupal/quicktabs \
   drupal/reference_table_formatter \
   drupal/rules \
   drupal/search_api_solr \
+  drupal/select2 \
   drupal/token \
   drupal/token_filter \
   drupal/webform
