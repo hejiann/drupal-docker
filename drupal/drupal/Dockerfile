@@ -150,6 +150,7 @@ RUN composer require \
   drupal/select2 \
   drupal/token \
   drupal/token_filter \
+  drupal/views_entity_form_field \
   drupal/webform
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
