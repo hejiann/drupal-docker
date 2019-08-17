@@ -252,6 +252,13 @@ RUN cd modules/contrib/migrate_source_xls && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
 
+# migrate_source_csv: Call to undefined method League\Csv\Reader::setHeaderOffset()
+# https://www.drupal.org/project/migrate_source_csv/issues/3060172
+RUN cd modules/contrib/migrate_source_csv && \
+  wget https://www.drupal.org/files/issues/2019-06-07/3060172-6-fix-dependency.patch && \
+  patch -p1 < 3060172-6-fix-dependency.patch && \
+  rm 3060172-6-fix-dependency.patch
+
 # Install layout modules
 RUN composer require \
   drupal/page_manager \
