@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190521
+ENV DRUPAL_VERSION 20190725
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -137,18 +137,21 @@ RUN composer require \
   drupal/block_style_plugins:dev-2.x \
   drupal/conditional_fields \
   drupal/custom_formatters \
+  drupal/entity_browser \
   drupal/facets \
   drupal/features \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
   drupal/pinyin \
-  drupal/quicktabs \
   drupal/reference_table_formatter \
   drupal/rules \
   drupal/search_api_solr \
+  drupal/select2 \
   drupal/token \
-  drupal/token_filter
+  drupal/token_filter \
+  drupal/views_entity_form_field \
+  drupal/webform
 
 # ajax_links_api: No schema for ajax_links_api.admin_settings
 # https://www.drupal.org/project/ajax_links_api/issues/3015840
@@ -183,9 +186,6 @@ RUN cd modules/contrib/entity_print && \
   wget https://www.drupal.org/files/issues/2018-05-03/entity_print-dompdf-2969184.patch && \
   patch -p1 < entity_print-dompdf-2969184.patch && \
   rm entity_print-dompdf-2969184.patch
-
-# Install latest eva
-RUN git clone https://git.drupal.org/project/eva.git -b 8.x-1.x /var/www/html/modules/contrib/eva
 
 # Install field_widget_class
 #RUN composer require drupal/field_widget_class
@@ -225,7 +225,6 @@ RUN composer require drupal/console
 
 RUN composer require \
   drupal/csv_serialization \
-  drupal/default_content \
   drupal/migrate_plus \
   drupal/migrate_source_csv \
   drupal/migrate_source_xls \
@@ -253,6 +252,13 @@ RUN cd modules/contrib/migrate_source_xls && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
 
+# migrate_source_csv: Call to undefined method League\Csv\Reader::setHeaderOffset()
+# https://www.drupal.org/project/migrate_source_csv/issues/3060172
+RUN cd modules/contrib/migrate_source_csv && \
+  wget https://www.drupal.org/files/issues/2019-06-07/3060172-6-fix-dependency.patch && \
+  patch -p1 < 3060172-6-fix-dependency.patch && \
+  rm 3060172-6-fix-dependency.patch
+
 # Install layout modules
 RUN composer require \
   drupal/page_manager \
@@ -277,9 +283,6 @@ RUN composer require \
 # https://github.com/drupal-graphql/graphql/pull/679
 RUN composer require webonyx/graphql-php && \
   git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/contrib/graphql
-
-# Configuration management
-RUN composer require drupal/config_rewrite
 
 # Install memcache modules
 RUN composer require \
