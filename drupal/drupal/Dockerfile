@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190725
+ENV DRUPAL_VERSION 20190904
 RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -137,6 +137,7 @@ RUN composer require \
   drupal/block_style_plugins:dev-2.x \
   drupal/conditional_fields \
   drupal/custom_formatters \
+  drupal/easy_breadcrumb \
   drupal/entity_browser \
   drupal/facets \
   drupal/features \
