@@ -224,10 +224,11 @@ RUN composer require drupal/console
 
 # Install migrate modules
 
+# migrate_source_csv:^3.1 needs league/csv:^9, but csv_serialization needs league/csv:^8
 RUN composer require \
   drupal/csv_serialization \
   drupal/migrate_plus \
-  drupal/migrate_source_csv \
+  drupal/migrate_source_csv:^2.2 \
   drupal/migrate_source_xls \
   drupal/migrate_tools \
   drupal/xls_serialization
@@ -252,13 +253,6 @@ RUN cd modules/contrib/migrate_source_xls && \
   wget https://www.drupal.org/files/issues/2019-03-23/2954477-constants-3.patch && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
-
-# migrate_source_csv: Call to undefined method League\Csv\Reader::setHeaderOffset()
-# https://www.drupal.org/project/migrate_source_csv/issues/3060172
-RUN cd modules/contrib/migrate_source_csv && \
-  wget https://www.drupal.org/files/issues/2019-06-07/3060172-6-fix-dependency.patch && \
-  patch -p1 < 3060172-6-fix-dependency.patch && \
-  rm 3060172-6-fix-dependency.patch
 
 # Install layout modules
 RUN composer require \
