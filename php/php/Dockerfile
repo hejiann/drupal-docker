@@ -1,7 +1,7 @@
 FROM debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV DEBIAN_VERSION 20190824
+ENV DEBIAN_VERSION 20191018
 RUN apt-get update && apt-get dist-upgrade -y
 
 # Install Apache/MySQL/PHP
@@ -63,6 +63,9 @@ COPY files/default.vcl /etc/varnish/default.vcl
 # Install composer
 RUN apt-get install -y \
   composer
+
+# composer mirror
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # Install Supervisor
 RUN apt-get install -y \
