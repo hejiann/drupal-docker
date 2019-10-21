@@ -65,7 +65,7 @@ RUN apt-get install -y \
   composer
 
 # composer mirror
-composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 # Install Supervisor
 RUN apt-get install -y \
