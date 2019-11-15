@@ -141,6 +141,7 @@ RUN composer require \
   drupal/entity_browser \
   drupal/facets \
   drupal/features \
+  drupal/field_delimiter \
   drupal/field_formatter_class \
   drupal/field_group \
   drupal/inline_entity_form \
