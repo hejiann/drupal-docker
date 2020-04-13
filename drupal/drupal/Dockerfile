@@ -91,6 +91,9 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
   rm 3028979.29.patch
 
 # layout_builder: ...
+RUN wget https://www.drupal.org/files/issues/2020-04-13/3127026-layout_builder-1.patch && \
+   patch -p1 < 3127026-layout_builder-1.patch && \
+   rm 3127026-layout_builder-1.patch
 
 
 # Config entity label and other fields translation doesn't work
