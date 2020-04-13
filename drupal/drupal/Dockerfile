@@ -11,8 +11,8 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20190904
-RUN git clone -b 8.7.x https://git.drupal.org/project/drupal.git /var/www/html
+ENV DRUPAL_VERSION 20200413
+RUN git clone -b 8.8.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
@@ -89,6 +89,9 @@ RUN wget https://www.drupal.org/files/issues/2019-02-26/3015152-tps-5.patch && \
 RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
   patch -p1 < 3028979.29.patch && \
   rm 3028979.29.patch
+
+# layout_builder: ...
+
 
 # Config entity label and other fields translation doesn't work
 # https://www.drupal.org/project/drupal/issues/3030949
