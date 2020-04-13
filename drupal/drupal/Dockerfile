@@ -16,6 +16,7 @@ RUN git clone -b 8.8.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
+RUN composer self-update
 RUN composer install
 
 # Manage localization on module install (import locales first, default language)
@@ -90,8 +91,11 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
   patch -p1 < 3028979.29.patch && \
   rm 3028979.29.patch
 
-# layout_builder: ...
-
+# layout_builder: class does not correspond to an entity type.
+# https://www.drupal.org/node/3127026
+RUN wget https://www.drupal.org/files/issues/2020-04-13/3127026-layout_builder-1.patch && \
+  patch -p1 < 3127026-layout_builder-1.patch && \
+  rm 3127026-layout_builder-1.patch
 
 # Config entity label and other fields translation doesn't work
 # https://www.drupal.org/project/drupal/issues/3030949
