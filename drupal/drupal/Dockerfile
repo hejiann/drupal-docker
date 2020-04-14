@@ -16,7 +16,6 @@ RUN git clone -b 8.8.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
-RUN composer self-update
 RUN composer install
 
 # Manage localization on module install (import locales first, default language)
