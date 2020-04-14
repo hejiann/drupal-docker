@@ -1,7 +1,7 @@
 FROM debian:stretch
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV DEBIAN_VERSION 20191018
+ENV DEBIAN_VERSION 20200414
 RUN apt-get update && apt-get dist-upgrade -y
 
 # Install Apache/MySQL/PHP
@@ -62,12 +62,12 @@ COPY files/default.vcl /etc/varnish/default.vcl
 
 # Install composer
 # Drupal core development requires Composer 1.9.0
-#RUN apt-get install -y \
-#  composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-RUN php composer-setup.php
-RUN php -r "unlink('composer-setup.php');"
+RUN apt-get install -y \
+  composer
+#RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+#RUN php composer-setup.php
+#RUN php -r "unlink('composer-setup.php');"
 
 # composer mirror
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
