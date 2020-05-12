@@ -60,6 +60,12 @@ RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
   patch -p1 < 2855068-8_0.patch && \
   rm 2855068-8_0.patch
 
+# PrepareModulesEntityUninstallForm::formTitle does not exist
+# https://www.drupal.org/project/drupal/issues/2862702
+RUN wget https://www.drupal.org/files/issues/2862702-3.patch
+  patch -p1 < 2862702-3.patch && \
+  rm 2862702-3.patch
+
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
 #RUN wget https://www.drupal.org/files/issues/2019-03-24/2940015-seven-theme-10.patch && \
