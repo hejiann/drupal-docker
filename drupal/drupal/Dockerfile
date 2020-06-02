@@ -211,6 +211,13 @@ RUN cd modules/contrib/reference_table_formatter && \
   patch -p1 < 2866712-call-to-a-member-function-on-null-4.patch && \
   rm 2866712-call-to-a-member-function-on-null-4.patch
 
+# Patch: Notice: Undefined index: target_bundles in Drupal\reference_table_formatter\Plugin\Field\FieldFormatter\EntityReference->getTargetBundleId()
+# https://www.drupal.org/project/reference_table_formatter/issues/2917320
+RUN cd modules/contrib/reference_table_formatter && \
+  wget https://www.drupal.org/files/issues/reference_table_formatter-no_target_bundle-2917320-2.patch && \
+  patch -p1 < reference_table_formatter-no_target_bundle-2917320-2.patch && \
+  rm reference_table_formatter-no_target_bundle-2917320-2.patch
+
 # Install drush
 RUN composer require drush/drush
 
