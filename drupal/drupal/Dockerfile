@@ -135,12 +135,13 @@ RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configura
   patch -p1 < 3058090-update-configuration-translation-2.patch && \
   rm 3058090-update-configuration-translation-2.patch
 
-# Install Drupal modules
+# Install contributed modules
 RUN composer require \
   drupal/r4032login \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_style_plugins:dev-2.x \
+  drupal/business_rules \
   drupal/conditional_fields \
   drupal/custom_formatters \
   drupal/easy_breadcrumb \
