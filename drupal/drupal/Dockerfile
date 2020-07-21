@@ -11,8 +11,8 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20200413
-RUN git clone -b 8.8.x https://git.drupal.org/project/drupal.git /var/www/html
+ENV DRUPAL_VERSION 20200721
+RUN git clone -b 8.9.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
@@ -134,6 +134,12 @@ RUN wget https://www.drupal.org/files/issues/2019-05-04/3052608-2.drupal.DateTim
 RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configuration-translation-2.patch && \
   patch -p1 < 3058090-update-configuration-translation-2.patch && \
   rm 3058090-update-configuration-translation-2.patch
+
+# Translation: "$id is defined as a source ID but has no value."
+# https://www.drupal.org/node/3160323
+RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch \
+  patch -p1 < migrate-3160323-2.patch && \
+  rm migrate-3160323-2.patch
 
 # Install contributed modules
 RUN composer require \
