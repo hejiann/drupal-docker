@@ -54,12 +54,6 @@ RUN wget https://www.drupal.org/files/issues/2019-03-24/2821352-entity-reference
   patch -p1 < 2821352-entity-reference-auto-create-12.patch && \
   rm 2821352-entity-reference-auto-create-12.patch
 
-# Patch: Can't create comments when comment is a base field
-# https://www.drupal.org/project/drupal/issues/2855068
-RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
-  patch -p1 < 2855068-8_0.patch && \
-  rm 2855068-8_0.patch
-
 # PrepareModulesEntityUninstallForm::formTitle does not exist
 # https://www.drupal.org/project/drupal/issues/2862702
 RUN wget https://www.drupal.org/files/issues/2862702-3.patch && \
