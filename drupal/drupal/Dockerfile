@@ -131,7 +131,7 @@ RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configura
 
 # Translation: "$id is defined as a source ID but has no value."
 # https://www.drupal.org/node/3160323
-RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch \
+RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch && \
   patch -p1 < migrate-3160323-2.patch && \
   rm migrate-3160323-2.patch
 
