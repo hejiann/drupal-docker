@@ -1,7 +1,7 @@
-FROM debian:stretch
+FROM debian:buster
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV DEBIAN_VERSION 20200721
+ENV DEBIAN_VERSION 20200730
 RUN apt-get update && apt-get dist-upgrade -y
 
 # Install Apache/MySQL/PHP
