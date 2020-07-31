@@ -7,7 +7,7 @@ RUN apt-get update && apt-get dist-upgrade -y
 # Install Apache/MySQL/PHP
 RUN apt-get install -y \
   apache2 \
-  mysql-server \
+  mariadb-server \
   php-cli \
   libapache2-mod-php
 
