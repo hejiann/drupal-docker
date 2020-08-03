@@ -23,32 +23,33 @@ RUN a2enmod rewrite && \
   a2ensite default-ssl.conf
 
 # Setup PHP
-RUN sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.0/cli/php.ini && \
-  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.0/cli/php.ini
+RUN sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.3/cli/php.ini && \
+  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/;date.timezone =/date.timezone = Asia\/Shanghai/' /etc/php/7.3/cli/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.3/cli/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.3/cli/php.ini && \
+  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/cli/php.ini
 # eva module need always_populate_raw_post_data PHP setting be set to -1
-RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.0/apache2/php.ini && \
-  sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.0/cli/php.ini
+RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.3/cli/php.ini
 
 # Install PHP extensions
 RUN apt-get install -y \
   php-apcu \
   php-curl \
   php-gd \
+  php-intl \
   php-mbstring \
   php-mysql \
   php-xml \
   php-zip
 
 # Setup apcu
-RUN echo 'apc.shm_size=64M' >> /etc/php/7.0/mods-available/apcu.ini
+RUN echo 'apc.shm_size=64M' >> /etc/php/7.3/mods-available/apcu.ini
 
 # Install memcached
 RUN apt-get install -y \
