@@ -262,6 +262,13 @@ RUN cd modules/contrib/migrate_source_xls && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
 
+# migrate_source_xls: Incompatible declaration of Drupal\migrate\Plugin\migrate\source\SqlBase::count()
+# https://www.drupal.org/node/3005241
+RUN cd modules/contrib/migrate_source_xls && \
+  wget https://www.drupal.org/files/issues/2018-10-09/3005241.patch && \
+  patch -p1 < 3005241.patch && \
+  rm 3005241.patch
+
 # Install layout modules
 RUN composer require \
   drupal/page_manager \
