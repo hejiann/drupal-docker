@@ -262,13 +262,6 @@ RUN cd modules/contrib/migrate_source_xls && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
 
-#migrate_tools: Class 'Drush\Commands\DrushCommands' not found
-# https://www.drupal.org/project/migrate_tools/issues/3099611
-RUN cd modules/contrib/migrate_tools && \
-  wget https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch && \
-  patch -p1 < 3099611-15.patch && \
-  rm 3099611-15.patch
-
 # Install layout modules
 RUN composer require \
   drupal/page_manager \
