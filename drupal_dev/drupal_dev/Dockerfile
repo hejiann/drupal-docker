@@ -88,11 +88,6 @@ RUN composer require \
 # PHPUnit testing framework version 7 or greater is required when running on PHP 7.3 or greater.
 RUN composer run-script drupal-phpunit-upgrade
 
-# update to development version
-RUN cd modules/eabax && \
-  sshpass -p 39cb3ae0 git pull && \
-  git checkout d
-
 # Finish
 EXPOSE 80 3306 22 443
 CMD exec supervisord -n
