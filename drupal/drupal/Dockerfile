@@ -41,12 +41,12 @@ RUN wget https://www.drupal.org/files/issues/2654322-translation-import-2.patch 
 
 # datetime_range: Allow end date to be optional
 # https://www.drupal.org/project/drupal/issues/2794481
-RUN wget https://www.drupal.org/files/issues/2018-05-14/2794481-60.patch && \
-  patch -p1 < 2794481-60.patch && \
-  rm 2794481-60.patch
-COPY files/datetimerange.patch datetimerange.patch
-RUN patch -p1 < datetimerange.patch && \
-  rm datetimerange.patch
+RUN wget https://www.drupal.org/files/issues/2020-08-09/2794481-109.patch && \
+  patch -p1 < 2794481-109.patch && \
+  rm 2794481-109.patch
+#COPY files/datetimerange.patch datetimerange.patch
+#RUN patch -p1 < datetimerange.patch && \
+#  rm datetimerange.patch
 
 # EntityReferenceAutocompleteWidget getAutoCreateBundle unnecessarily requires target_bundles setting
 # https://www.drupal.org/project/drupal/issues/2821352
@@ -134,6 +134,12 @@ RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configura
 RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch && \
   patch -p1 < migrate-3160323-2.patch && \
   rm migrate-3160323-2.patch
+
+# datetime_range: Allowed start date and end date to be optional
+# https://www.drupal.org/node/3133982
+RUN wget https://www.drupal.org/files/issues/2020-08-20/3133982-1.patch && \
+  patch -p1 < 3133982-1.patch && \
+  rm 3133982-1.patch
 
 # Install contributed modules
 RUN composer require \
