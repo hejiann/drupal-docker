@@ -1,23 +1,24 @@
 [mysqld]
-join_buffer_size = 8M
-
-slow_query_log = 1
-long_query_time = 1
-#log_queries_not_using_indexes = 1
-
-query_cache_size = 32M
-innodb_buffer_pool_size = 1G
-
-max_allowed_packet = 64M
+key_buffer_size = 512M
+max_allowed_packet = 128M
 table_open_cache = 4096
 sort_buffer_size = 3M
 read_buffer_size = 2M
 read_rnd_buffer_size = 64M
 thread_cache_size = 256
+query_cache_size = 32M
 
+innodb_buffer_pool_size = 1G
 innodb_log_file_size = 128M
 innodb_log_buffer_size = 64M
-innodb_flush_log_at_trx_commit = 180
+innodb_flush_log_at_trx_commit = 1
+innodb_lock_wait_timeout = 180
+
+join_buffer_size = 8M
+
+slow_query_log = 1
+long_query_time = 1
+#log_queries_not_using_indexes = 1
 
 max_connections = 150
 max_user_connections = 150
