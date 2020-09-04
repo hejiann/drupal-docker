@@ -196,8 +196,8 @@ RUN mkdir libraries -p && \
   mv c3-0.4.18 libraries/c3
 
 # Install entity_print
-RUN composer require drupal/entity_print \
-  mikehaertl/phpwkhtmltopdf
+RUN composer require drupal/entity_print
+
 # PDF generation errors with DomPDF due to drupalSettings
 # https://www.drupal.org/project/entity_print/issues/2969184
 RUN cd modules/contrib/entity_print && \
