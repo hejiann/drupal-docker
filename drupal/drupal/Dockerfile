@@ -11,8 +11,8 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20200413
-RUN git clone -b 8.8.x https://git.drupal.org/project/drupal.git /var/www/html
+ENV DRUPAL_VERSION 20200721
+RUN git clone -b 8.9.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
 ENV COMPOSER_PROCESS_TIMEOUT 1200
@@ -41,12 +41,12 @@ RUN wget https://www.drupal.org/files/issues/2654322-translation-import-2.patch 
 
 # datetime_range: Allow end date to be optional
 # https://www.drupal.org/project/drupal/issues/2794481
-RUN wget https://www.drupal.org/files/issues/2018-05-14/2794481-60.patch && \
-  patch -p1 < 2794481-60.patch && \
-  rm 2794481-60.patch
-COPY files/datetimerange.patch datetimerange.patch
-RUN patch -p1 < datetimerange.patch && \
-  rm datetimerange.patch
+RUN wget https://www.drupal.org/files/issues/2020-08-09/2794481-109.patch && \
+  patch -p1 < 2794481-109.patch && \
+  rm 2794481-109.patch
+#COPY files/datetimerange.patch datetimerange.patch
+#RUN patch -p1 < datetimerange.patch && \
+#  rm datetimerange.patch
 
 # EntityReferenceAutocompleteWidget getAutoCreateBundle unnecessarily requires target_bundles setting
 # https://www.drupal.org/project/drupal/issues/2821352
@@ -54,23 +54,17 @@ RUN wget https://www.drupal.org/files/issues/2019-03-24/2821352-entity-reference
   patch -p1 < 2821352-entity-reference-auto-create-12.patch && \
   rm 2821352-entity-reference-auto-create-12.patch
 
-# Patch: Can't create comments when comment is a base field
-# https://www.drupal.org/project/drupal/issues/2855068
-RUN wget https://www.drupal.org/files/issues/2855068-8_0.patch && \
-  patch -p1 < 2855068-8_0.patch && \
-  rm 2855068-8_0.patch
-
-# Patch: Allow updating modules with new service dependencies
-# https://www.drupal.org/project/drupal/issues/2863986
-#RUN wget https://www.drupal.org/files/issues/2863986-2-49.patch && \
-#  patch -p1 < 2863986-2-49.patch && \
-#  rm 2863986-2-49.patch
+# PrepareModulesEntityUninstallForm::formTitle does not exist
+# https://www.drupal.org/project/drupal/issues/2862702
+RUN wget https://www.drupal.org/files/issues/2862702-3.patch && \
+  patch -p1 < 2862702-3.patch && \
+  rm 2862702-3.patch
 
 # Patch: Enable block contextual link
 # https://www.drupal.org/project/drupal/issues/2940015
-RUN wget https://www.drupal.org/files/issues/2019-03-24/2940015-seven-theme-10.patch && \
-  patch -p1 < 2940015-seven-theme-10.patch && \
-  rm 2940015-seven-theme-10.patch
+#RUN wget https://www.drupal.org/files/issues/2019-03-24/2940015-seven-theme-10.patch && \
+#  patch -p1 < 2940015-seven-theme-10.patch && \
+#  rm 2940015-seven-theme-10.patch
 
 # Patch: TypeError: Argument 1 passed to _editor_get_file_uuids_by_field() must implement interface Drupal\\Core\\Entity\\EntityInterface
 # https://www.drupal.org/project/drupal/issues/2974156
@@ -90,11 +84,11 @@ RUN wget https://www.drupal.org/files/issues/2019-02-28/3028979.29.patch && \
   patch -p1 < 3028979.29.patch && \
   rm 3028979.29.patch
 
-# layout_builder: ...
+# layout_builder: class does not correspond to an entity type.
+# https://www.drupal.org/node/3127026
 RUN wget https://www.drupal.org/files/issues/2020-04-13/3127026-layout_builder-1.patch && \
-   patch -p1 < 3127026-layout_builder-1.patch && \
-   rm 3127026-layout_builder-1.patch
-
+  patch -p1 < 3127026-layout_builder-1.patch && \
+  rm 3127026-layout_builder-1.patch
 
 # Config entity label and other fields translation doesn't work
 # https://www.drupal.org/project/drupal/issues/3030949
@@ -135,12 +129,25 @@ RUN wget https://www.drupal.org/files/issues/2019-05-30/3058090-update-configura
   patch -p1 < 3058090-update-configuration-translation-2.patch && \
   rm 3058090-update-configuration-translation-2.patch
 
-# Install Drupal modules
+# Translation: "$id is defined as a source ID but has no value."
+# https://www.drupal.org/node/3160323
+RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch && \
+  patch -p1 < migrate-3160323-2.patch && \
+  rm migrate-3160323-2.patch
+
+# datetime_range: Allowed start date and end date to be optional
+# https://www.drupal.org/node/3133982
+RUN wget https://www.drupal.org/files/issues/2020-08-20/3133982-1.patch && \
+  patch -p1 < 3133982-1.patch && \
+  rm 3133982-1.patch
+
+# Install contributed modules
 RUN composer require \
   drupal/r4032login \
   drupal/address \
   drupal/ajax_links_api \
   drupal/block_style_plugins:dev-2.x \
+  drupal/business_rules \
   drupal/conditional_fields \
   drupal/custom_formatters \
   drupal/easy_breadcrumb \
@@ -181,13 +188,16 @@ RUN mkdir libraries -p && \
   wget https://github.com/d3/d3/archive/v3.5.17.zip && \
   unzip v3.5.17.zip && \
   mv d3-3.5.17 libraries/d3 && \
+  wget https://github.com/d3/d3/releases/download/v5.16.0/d3.zip && \
+  mkdir libraries/d3-5.16.0 && \
+  unzip d3.zip -d libraries/d3-5.16.0/ && \
   wget https://github.com/c3js/c3/archive/v0.4.18.zip && \
   unzip v0.4.18.zip && \
   mv c3-0.4.18 libraries/c3
 
 # Install entity_print
-RUN composer require drupal/entity_print \
-  mikehaertl/phpwkhtmltopdf
+RUN composer require drupal/entity_print
+
 # PDF generation errors with DomPDF due to drupalSettings
 # https://www.drupal.org/project/entity_print/issues/2969184
 RUN cd modules/contrib/entity_print && \
@@ -242,10 +252,10 @@ RUN composer require \
 
 # EntityGenerate: Provide multiple values will not process correctly.
 # https://www.drupal.org/node/2975266
-RUN cd modules/contrib/migrate_plus && \
-  wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
-  patch -p1 < 2975266-values-2.patch && \
-  rm 2975266-values-2.patch
+#RUN cd modules/contrib/migrate_plus && \
+#  wget https://www.drupal.org/files/issues/2018-05-25/2975266-values-2.patch && \
+#  patch -p1 < 2975266-values-2.patch && \
+#  rm 2975266-values-2.patch
 
 # migrate_source_xls: prepareColumns does not use the correct sheet_name defined by migration configuration
 # https://www.drupal.org/project/migrate_source_xls/issues/2954462
@@ -260,6 +270,13 @@ RUN cd modules/contrib/migrate_source_xls && \
   wget https://www.drupal.org/files/issues/2019-03-23/2954477-constants-3.patch && \
   patch -p1 < 2954477-constants-3.patch && \
   rm 2954477-constants-3.patch
+
+# migrate_source_xls: Incompatible declaration of Drupal\migrate\Plugin\migrate\source\SqlBase::count()
+# https://www.drupal.org/node/3005241
+RUN cd modules/contrib/migrate_source_xls && \
+  wget https://www.drupal.org/files/issues/2018-10-09/3005241.patch && \
+  patch -p1 < 3005241.patch && \
+  rm 3005241.patch
 
 # Install layout modules
 RUN composer require \

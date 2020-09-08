@@ -1,30 +1,36 @@
 [mysqld]
+key_buffer_size = 512M
+
+# Fix "MySQL server has gone away"
+max_allowed_packet = 128M
+
+table_open_cache = 4096
+sort_buffer_size = 3M
+read_buffer_size = 2M
+read_rnd_buffer_size = 64M
+thread_cache_size = 256
+query_cache_size = 32M
+
+innodb_buffer_pool_size = 1G
+innodb_log_file_size = 128M
+innodb_log_buffer_size = 64M
+innodb_flush_log_at_trx_commit = 1
+innodb_lock_wait_timeout = 180
+
 join_buffer_size = 8M
 
 slow_query_log = 1
 long_query_time = 1
 #log_queries_not_using_indexes = 1
 
-query_cache_size = 32M
-innodb_buffer_pool_size = 1G
-
-max_allowed_packet = 64M
-table_open_cache = 4096
-sort_buffer_size = 3M
-read_buffer_size = 2M
-read_rnd_buffer_size = 64M
-thread_cache_size = 256
-
-innodb_additional_mem_pool_size = 20M
-innodb_log_file_size = 128M
-innodb_log_buffer_size = 64M
-innodb_flush_log_at_trx_commit = 180
-
 max_connections = 150
 max_user_connections = 150
 key_buffer = 36M
-interactive_timeout = 25
-wait_timeout = 1800
+
+# 导致 Got timeout reading communication packets
+# interactive_timeout = 25
+# wait_timeout = 1800
+
 query_cache_type = 1
 tmp_table_size = 16M
 
