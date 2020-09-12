@@ -152,6 +152,7 @@ RUN composer require \
   drupal/custom_formatters \
   drupal/easy_breadcrumb \
   drupal/entity_browser \
+  drupal/entity_browser_enhanced \
   drupal/facets \
   drupal/features \
   drupal/field_delimiter \
