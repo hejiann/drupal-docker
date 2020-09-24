@@ -137,7 +137,7 @@ RUN wget https://www.drupal.org/files/issues/2020-07-20/migrate-3160323-2.patch 
 
 # datetime_range: Allowed start date and end date to be optional
 # https://www.drupal.org/node/3133982
-RUN wget https://www.drupal.org/files/issues/2020-08-20/3133982-4.patch && \
+RUN wget https://www.drupal.org/files/issues/2020-09-22/3133982-4.patch && \
   patch -p1 < 3133982-4.patch && \
   rm 3133982-4.patch
 
