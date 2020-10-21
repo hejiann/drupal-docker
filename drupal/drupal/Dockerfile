@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20200721
+ENV DRUPAL_VERSION 20201021
 RUN git clone -b 8.9.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -148,12 +148,10 @@ RUN composer require \
   drupal/ajax_links_api \
   drupal/block_style_plugins:dev-2.x \
   drupal/business_rules \
-  drupal/conditional_fields \
   drupal/custom_formatters \
   drupal/easy_breadcrumb \
   drupal/entity_browser \
   drupal/entity_browser_enhanced \
-  drupal/facets \
   drupal/features \
   drupal/field_delimiter \
   drupal/field_formatter_class \
@@ -162,10 +160,12 @@ RUN composer require \
   drupal/pinyin \
   drupal/reference_table_formatter \
   drupal/rules \
-  drupal/search_api_solr \
   drupal/select2 \
+  drupal/single_datetime \
   drupal/token \
   drupal/token_filter \
+  drupal/views_bulk_edit \
+  drupal/views_data_export \
   drupal/views_entity_form_field \
   drupal/webform
 
