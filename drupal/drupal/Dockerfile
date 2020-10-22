@@ -48,12 +48,6 @@ RUN wget https://www.drupal.org/files/issues/2020-08-09/2794481-109.patch && \
 #RUN patch -p1 < datetimerange.patch && \
 #  rm datetimerange.patch
 
-# EntityReferenceAutocompleteWidget getAutoCreateBundle unnecessarily requires target_bundles setting
-# https://www.drupal.org/project/drupal/issues/2821352
-RUN wget https://www.drupal.org/files/issues/2019-03-24/2821352-entity-reference-auto-create-12.patch && \
-  patch -p1 < 2821352-entity-reference-auto-create-12.patch && \
-  rm 2821352-entity-reference-auto-create-12.patch
-
 # PrepareModulesEntityUninstallForm::formTitle does not exist
 # https://www.drupal.org/project/drupal/issues/2862702
 RUN wget https://www.drupal.org/files/issues/2862702-3.patch && \
