@@ -216,6 +216,11 @@ RUN cd modules/contrib/reference_table_formatter && \
   patch -p1 < 2866712-call-to-a-member-function-on-null-4.patch && \
   rm 2866712-call-to-a-member-function-on-null-4.patch
 
+# Install single_datetime required package.
+RUN wget https://github.com/xdan/datetimepicker/archive/2.5.20.zip && \
+  unzip 2.5.20.zip && \
+  mv datetimepicker-2.5.20 libraries/datetimepicker
+
 # Install drush
 RUN composer require drush/drush
 
