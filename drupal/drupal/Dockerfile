@@ -143,6 +143,7 @@ RUN composer require \
   drupal/block_style_plugins:dev-2.x \
   drupal/business_rules \
   drupal/custom_formatters \
+  drupal/datatables \
   drupal/easy_breadcrumb \
   drupal/entity_browser \
   drupal/entity_browser_enhanced \
