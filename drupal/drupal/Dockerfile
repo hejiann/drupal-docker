@@ -149,7 +149,6 @@ RUN composer require \
   drupal/block_style_plugins:dev-2.x \
   drupal/business_rules \
   drupal/custom_formatters \
-  drupal/datatables \
   drupal/easy_breadcrumb \
   drupal/entity_browser \
   drupal/entity_browser_enhanced \
@@ -196,6 +195,12 @@ RUN mkdir libraries -p && \
   wget https://github.com/c3js/c3/archive/v0.4.18.zip && \
   unzip v0.4.18.zip && \
   mv c3-0.4.18 libraries/c3
+
+# Install datatables
+RUN composer require drupal/datatables
+RUN wget http://datatables.net/releases/DataTables-1.9.3.zip && \
+  unzip DataTables-1.9.3.zip && \
+  mv mv DataTables-1.9.3 libraries/datatables
 
 # Install entity_print
 RUN composer require drupal/entity_print
