@@ -27,6 +27,12 @@ RUN composer install
 #  patch -p1 < 2174633-143-entity-reference.patch && \
 #  rm 2174633-143-entity-reference.patch
 
+# Static cache permissions
+# https://www.drupal.org/project/drupal/issues/2339487
+RUN wget https://www.drupal.org/files/issues/2020-06-04/2339487-47.patch && \
+  patch -p1 < 2339487-47.patch && \
+  rm 2339487-47.patch
+
 # StringFormatter generates links in wrong language when linking to entity
 # https://www.drupal.org/project/drupal/issues/2648288
 RUN wget https://www.drupal.org/files/issues/2019-03-23/2648288-string-formatter-30.patch && \
