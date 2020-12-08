@@ -200,8 +200,8 @@ RUN mkdir libraries -p && \
 # Install datatables
 RUN composer require drupal/datatables
 RUN wget http://datatables.net/releases/DataTables-1.9.3.zip && \
-  unzip DataTables-1.9.3.zip && \
-  mv mv DataTables-1.9.3 libraries/datatables
+  mkdir libraries/datables && \
+  unzip DataTables-1.9.3.zip -d libraries/datatables/
 
 # Install entity_print
 RUN composer require drupal/entity_print
