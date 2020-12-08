@@ -190,18 +190,22 @@ RUN mkdir libraries -p && \
   wget https://github.com/d3/d3/archive/v3.5.17.zip && \
   unzip v3.5.17.zip && \
   mv d3-3.5.17 libraries/d3 && \
+  rm v3.5.17.zip && \
   wget https://github.com/d3/d3/releases/download/v5.16.0/d3.zip && \
   mkdir libraries/d3-5.16.0 && \
   unzip d3.zip -d libraries/d3-5.16.0/ && \
+  rm d3.zip && \
   wget https://github.com/c3js/c3/archive/v0.4.18.zip && \
   unzip v0.4.18.zip && \
-  mv c3-0.4.18 libraries/c3
+  mv c3-0.4.18 libraries/c3 && \
+  rm v0.4.18.zip
 
 # Install datatables
 RUN composer require drupal/datatables
 RUN wget http://datatables.net/releases/DataTables-1.9.3.zip && \
-  mkdir libraries/datables && \
-  unzip DataTables-1.9.3.zip -d libraries/datatables/
+  unzip DataTables-1.9.3.zip && \
+  mv DataTables-1.9.3 libraries/datatables && \
+  rm DataTables-1.9.3
 
 # Install entity_print
 RUN composer require drupal/entity_print
@@ -232,7 +236,8 @@ RUN cd modules/contrib/reference_table_formatter && \
 # Install single_datetime required package.
 RUN wget https://github.com/xdan/datetimepicker/archive/2.5.20.zip && \
   unzip 2.5.20.zip && \
-  mv datetimepicker-2.5.20 libraries/datetimepicker
+  mv datetimepicker-2.5.20 libraries/datetimepicker && \
+  rm 2.5.20.zip
 
 # Install drush
 RUN composer require drush/drush
@@ -319,7 +324,8 @@ RUN composer require webonyx/graphql-php && \
 # fancytree
 RUN wget https://github.com/mar10/fancytree/archive/v2.37.0.zip && \
   mkdir libraries/facancytree && \
-  unzip v2.37.0.zip -d libraries/facancytree/ && \
+  unzip v2.37.0.zip && \
+  mv facancytree-2.37.0 libraries/facancytree && \
   rm v2.37.0.zip
 
 # Install memcache modules
