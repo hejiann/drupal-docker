@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20201111
+ENV DRUPAL_VERSION 20201208
 RUN git clone -b 8.9.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -162,6 +162,7 @@ RUN composer require \
   drupal/rules \
   drupal/select2 \
   drupal/single_datetime \
+  drupal/smtp \
   drupal/token \
   drupal/token_filter \
   drupal/views_bulk_edit \
