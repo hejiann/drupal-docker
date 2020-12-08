@@ -316,6 +316,12 @@ RUN composer require \
 RUN composer require webonyx/graphql-php && \
   git clone https://github.com/drupal-graphql/graphql.git /var/www/html/modules/contrib/graphql
 
+# fancytree
+RUN wget https://github.com/mar10/fancytree/archive/v2.37.0.zip && \
+  mkdir libraries/facancytree && \
+  unzip v2.37.0.zip -d libraries/facancytree/ && \
+  rm v2.37.0.zip
+
 # Install memcache modules
 RUN composer require \
   drupal/memcache
