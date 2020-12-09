@@ -323,9 +323,8 @@ RUN composer require webonyx/graphql-php && \
 
 # fancytree
 RUN wget https://github.com/mar10/fancytree/archive/v2.37.0.zip && \
-  mkdir libraries/facancytree && \
   unzip v2.37.0.zip && \
-  mv facancytree-2.37.0 libraries/facancytree && \
+  mv fancytree-2.37.0 libraries/fancytree && \
   rm v2.37.0.zip
 
 # Install memcache modules
