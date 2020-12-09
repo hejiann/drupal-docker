@@ -205,7 +205,7 @@ RUN composer require drupal/datatables
 RUN wget http://datatables.net/releases/DataTables-1.9.3.zip && \
   unzip DataTables-1.9.3.zip && \
   mv DataTables-1.9.3 libraries/datatables && \
-  rm DataTables-1.9.3
+  rm DataTables-1.9.3.zip
 
 # Install entity_print
 RUN composer require drupal/entity_print
