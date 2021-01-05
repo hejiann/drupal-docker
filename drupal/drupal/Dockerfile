@@ -165,6 +165,7 @@ RUN composer require \
   drupal/smtp \
   drupal/token \
   drupal/token_filter \
+  drupal/veoa \
   drupal/views_bulk_edit \
   drupal/views_data_export \
   drupal/views_entity_form_field \
