@@ -42,6 +42,7 @@ RUN apt-get install -y \
   php-apcu \
   php-curl \
   php-gd \
+  php-imap \
   php-intl \
   php-mbstring \
   php-mysql \
