@@ -178,12 +178,12 @@ RUN cd modules/contrib/ajax_links_api && \
   patch -p1 < 3015840-schema-2.patch && \
   rm 3015840-schema-2.patch
 
-# If PHP filter is empty, module should return TRUE and not execute code
-# https://www.drupal.org/project/php/issues/2678430
-#RUN cd modules/contrib/php && \
-#  wget https://www.drupal.org/files/issues/php_condition_check_empty-2678430-13.patch && \
-#  patch -p1 < php_condition_check_empty-2678430-13.patch && \
-#  rm php_condition_check_empty-2678430-13.patch
+# field_group: Notice: Undefined index: name in Drupal\field_ui\Element\FieldUiTable::reduceOrder()
+# https://www.drupal.org/project/field_group/issues/3064890
+RUN cd modules/contrib/field_group && \
+  wget https://www.drupal.org/files/issues/2020-10-01/field_group-undefined-index-name-3064890-18.patch && \
+  patch -p1 < field_group-undefined-index-name-3064890-18.patch && \
+  rm field_group-undefined-index-name-3064890-18.patch
 
 # Install charts
 RUN composer require drupal/charts
