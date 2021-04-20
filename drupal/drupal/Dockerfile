@@ -11,7 +11,7 @@ COPY files/60-drupal.cnf /etc/mysql/conf.d/60-drupal.cnf
 
 # Install Drupal
 RUN rm -rf /var/www/html
-ENV DRUPAL_VERSION 20201208
+ENV DRUPAL_VERSION 20210420
 RUN git clone -b 8.9.x https://git.drupal.org/project/drupal.git /var/www/html
 
 WORKDIR /var/www/html
@@ -259,12 +259,10 @@ RUN mkdir -p /var/www/private && \
 RUN composer require drupal/console
 
 # Install migrate modules
-
-# migrate_source_csv:^3.1 needs league/csv:^9, but csv_serialization needs league/csv:^8
 RUN composer require \
   drupal/csv_serialization \
   drupal/migrate_plus \
-  drupal/migrate_source_csv:^2.2 \
+  drupal/migrate_source_csv \
   drupal/migrate_source_xls \
   drupal/migrate_tools \
   drupal/xls_serialization
