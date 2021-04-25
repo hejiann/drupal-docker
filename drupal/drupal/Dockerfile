@@ -160,7 +160,6 @@ RUN composer require \
   drupal/pinyin \
   drupal/reference_table_formatter \
   drupal/rules \
-  drupal/select2 \
   drupal/single_datetime \
   drupal/smtp \
   drupal/token \
@@ -233,6 +232,12 @@ RUN cd modules/contrib/reference_table_formatter && \
   wget https://www.drupal.org/files/issues/2866712-call-to-a-member-function-on-null-4.patch && \
   patch -p1 < 2866712-call-to-a-member-function-on-null-4.patch && \
   rm 2866712-call-to-a-member-function-on-null-4.patch
+
+# Install select2
+RUN composer require drupal/select2
+RUN wget https://github.com/select2/select2/archive/refs/tags/4.0.13.tar.gz && \
+  tar xvzf 4.0.13.tar.gz && \
+  mv select2-4.0.13 libraries/select2
 
 # Install single_datetime required package.
 RUN wget https://github.com/xdan/datetimepicker/archive/2.5.20.zip && \
