@@ -31,8 +31,11 @@ RUN sed -i 's/memory_limit = 128M/memory_limit = 1024M/' /etc/php/7.3/apache2/ph
   sed -i 's/post_max_size = 8M/post_max_size = 128M/' /etc/php/7.3/cli/php.ini && \
   sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.3/apache2/php.ini && \
   sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 128M/' /etc/php/7.3/cli/php.ini && \
-  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/apache2/php.ini && \
-  sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/cli/php.ini
+  # inline_entity_form_migration_plugins_alter will cause: Maximum execution time of 64 seconds exceeded
+  #sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/apache2/php.ini && \
+  #sed -i 's/max_execution_time = 30/max_execution_time = 64/' /etc/php/7.3/cli/php.ini
+  sed -i 's/max_execution_time = 30/max_execution_time = 640/' /etc/php/7.3/apache2/php.ini && \
+  sed -i 's/max_execution_time = 30/max_execution_time = 640/' /etc/php/7.3/cli/php.ini
 # eva module need always_populate_raw_post_data PHP setting be set to -1
 RUN sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.3/apache2/php.ini && \
   sed -i 's/;always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/' /etc/php/7.3/cli/php.ini
